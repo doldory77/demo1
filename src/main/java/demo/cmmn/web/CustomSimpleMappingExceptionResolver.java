@@ -38,38 +38,54 @@ public class CustomSimpleMappingExceptionResolver extends SimpleMappingException
 		Integer statusCode = determineStatusCode(request, viewName);
 		String errorCode = "";
 		String errorMsg = "";
+		String errorMsgDetail = "";
+		
+		logger.debug("exception type : {}", ex.getClass().getName());
 		
 		if (ex != null && ex instanceof Exception) {
+			// 일반 오류
 			if (!EgovObjectUtil.isNull(statusCode)) {
 				errorCode = EgovStringUtil.integer2string(statusCode);
 			}
 			errorMsg = ex.getMessage();
 		} else if (ex != null && ex instanceof EgovBizException) {
+			// 업무단 오류
 			EgovBizException egovEx = (EgovBizException) ex;
 			errorCode = egovEx.getMessageKey();
 			errorMsg = egovEx.getMessage();
+			errorMsgDetail = egovEx.getMessage();
+		} else if ("cmmn/dataAccessFailure".equals(viewName)) {
+			logger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+			// DB - 키중복 오류
+			errorCode = "8000";
+			errorMsg = messageSource.getMessage("8000", null, Locale.KOREAN);
+			errorMsgDetail = messageSource.getMessage("8000.detail", null, Locale.KOREAN);
 		}
 		
 		request.setAttribute("errorCode", errorCode);
 		request.setAttribute("errorMsg", errorMsg);
+		request.setAttribute("errorMsgDetail", errorMsgDetail);
 		
 		if (pack != null) {
-			pack.setMsgDetail(errorMsg);
+			pack.setCode(errorCode);
+			pack.setMsg(errorMsg);
+			pack.setMsgDetail(errorMsgDetail);
 			commonService.insertLog(pack);
+			try {
+				commonService.selectLogByRange(pack.getTimestamp().substring(0, 14).concat("000"), pack.getTimestamp());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
-		logger.debug("viewName & packingVO : {} & {}", viewName, pack);
+		logger.debug("viewName & packingVO : [{}] & {}", viewName, pack);
 		
-		if ("cmmn/dataAccessFailure".equals(viewName)) {
-			errorCode = "8000";
-			errorMsg = "SQL " + messageSource.getMessage("fail.common.msg", new String[] {}, Locale.KOREAN);
-		}
+		return getModelAndView(viewName, ex, request);
 		
-		if ("application/json".equals(request.getHeader("Content-Type"))) {
-			return getModelAndView("cmmn/jsonErrorView", ex, request);
-		}
-		
-		return super.doResolveException(request, response, handler, ex);
+//		if ("application/json".startsWith(request.getHeader("Content-Type"))) {
+//		}
+//		return super.doResolveException(request, response, handler, ex);
 	}
 
 	

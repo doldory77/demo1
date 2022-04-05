@@ -5,19 +5,17 @@
       <router-link class="menu" to="/user/login">로그인</router-link><br />
     </div>
     <router-view></router-view>
-    
-    
-    <toast ref="toast" :img-src="xxx"></toast>
+    <toast ref="toast"></toast>
   </div>
 </template>
 
 <script>
 // import UserDetailView from "@/views/user/UserDetailView";
 import lifeCycle from "@/mixins/lifeCycle";
-import Toast from "./components/cmmn/Toast.vue";
+
 export default {
   mixins: [lifeCycle],
-  components: { Toast },
+  components: {},
   methods: {
     showToast() {
       let msg = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumend incidunt eligendi non reiciendis blanditiis?"

@@ -1410,8 +1410,13 @@
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>msg</columnName>
           <logicalName>메시지</logicalName>
-          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
-          <size>500</size>
+          <columnType class="net.java.amateras.db.dialect.ColumnType">
+            <name>VARCHAR</name>
+            <logicalName>String</logicalName>
+            <supportSize>true</supportSize>
+            <type>12</type>
+          </columnType>
+          <size>2000</size>
           <notNull>false</notNull>
           <primaryKey>false</primaryKey>
           <description></description>
@@ -1421,8 +1426,8 @@
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>msg_detail</columnName>
           <logicalName>메시지_상세</logicalName>
-          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
-          <size>1000</size>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[6]/columnType"/>
+          <size>3000</size>
           <notNull>false</notNull>
           <primaryKey>false</primaryKey>
           <description></description>
@@ -1432,8 +1437,8 @@
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>input</columnName>
           <logicalName>입력</logicalName>
-          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
-          <size>3000</size>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[6]/columnType"/>
+          <size>4000</size>
           <notNull>false</notNull>
           <primaryKey>false</primaryKey>
           <description></description>
@@ -1443,8 +1448,8 @@
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>output</columnName>
           <logicalName>출력</logicalName>
-          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
-          <size>3000</size>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[6]/columnType"/>
+          <size>4000</size>
           <notNull>false</notNull>
           <primaryKey>false</primaryKey>
           <description></description>

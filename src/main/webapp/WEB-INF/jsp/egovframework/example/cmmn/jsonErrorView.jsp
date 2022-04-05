@@ -10,8 +10,8 @@
 	PackingVO pack = (PackingVO) request.getAttribute(CmmnConst.PACK);
 	if (pack == null) {
 		pack = new PackingVO();
-		pack.setCode(ObjectUtils.toString(request.getAttribute("errorCode"), ""));
-		pack.setMsg(ObjectUtils.toString(request.getAttribute("errorMsg"), ""));
+		/*pack.setCode(ObjectUtils.toString(request.getAttribute("errorCode"), ""));
+		pack.setMsg(ObjectUtils.toString(request.getAttribute("errorMsg"), ""));*/
 	}
 	response.setStatus(200);
 	out.print(StringUtils.trim(pack.toString()));

@@ -10,16 +10,16 @@ import com.ibatis.sqlmap.client.extensions.ParameterSetter;
 import com.ibatis.sqlmap.client.extensions.ResultGetter;
 import com.ibatis.sqlmap.client.extensions.TypeHandlerCallback;
 
-public class PackingVOTypeHandler implements TypeHandlerCallback {
+public class ObjectToStringTypeHandler implements TypeHandlerCallback {
 	
-	private static final Logger logger = LoggerFactory.getLogger(PackingVOTypeHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(ObjectToStringTypeHandler.class);
 
 	@Override
 	public void setParameter(ParameterSetter setter, Object parameter) throws SQLException {
 		try {
-			setter.setString(parameter.getClass().getName() + "@" + parameter.toString());
+			if (parameter != null) setter.setString(parameter.getClass().getName() + "@" + parameter.toString());
 		} catch (Exception e) {
-			logger.error("PackingVOTypeHandler.setParameter : ", e);
+			logger.error("ObjectToStringTypeHandler.setParameter : ", e);
 		}
 	}
 
@@ -28,10 +28,12 @@ public class PackingVOTypeHandler implements TypeHandlerCallback {
 		Object obj = null;
 		String[] strArr = null;
 		try {
-			strArr = getter.getString().split("@", 2);
-			obj = CmmnUtil.OM.readValue(strArr[1], Class.forName(strArr[0]));
+			if (getter != null && getter.getString() != null) {
+				strArr = getter.getString().split("@", 2);
+				obj = CmmnUtil.OM.readValue(strArr[1], Class.forName(strArr[0]));
+			}
 		} catch (JsonProcessingException | ClassNotFoundException e) {
-			logger.error("PackingVOTypeHandler.getResult : ", e);
+			logger.error("ObjectToStringTypeHandler.getResult : ", e);
 		}
 		return obj;
 	}

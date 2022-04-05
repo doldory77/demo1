@@ -1,13 +1,19 @@
-<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Error</title>
-</head>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+<%@ page import="demo.cmmn.service.PackingVO" %>
+<%@ page import="demo.cmmn.service.CmmnConst" %>
+<%@ page import="org.apache.commons.lang3.StringUtils"%>
+<%@ page import="org.apache.commons.lang3.ObjectUtils" %>
+<%@ page isErrorPage="true" %>
 
-<body>
-    <spring:message code='fail.common.msg' />
-</body>
-</html>
+<%
+	PackingVO pack = (PackingVO) request.getAttribute(CmmnConst.PACK);
+	if (pack == null) {
+		pack = new PackingVO();
+		/*pack.setCode(ObjectUtils.toString(request.getAttribute("errorCode"), ""));
+		pack.setMsg(ObjectUtils.toString(request.getAttribute("errorMsg"), ""));*/
+	}
+	response.setStatus(200);
+	out.print(StringUtils.trim(pack.toString()));
+	out.flush();
+%>

@@ -131,10 +131,10 @@ CREATE TABLE log(
 		timestamp VARCHAR(17),
 		path VARCHAR(100),
 		code VARCHAR(30),
-		msg VARCHAR(500),
-		msg_detail VARCHAR(1000),
-		input VARCHAR(3000),
-		output VARCHAR(3000)
+		msg VARCHAR(2000),
+		msg_detail VARCHAR(3000),
+		input VARCHAR(4000),
+		output VARCHAR(4000)
 );
 
 
@@ -164,6 +164,8 @@ ALTER TABLE api ADD CONSTRAINT IDX_api_1 UNIQUE (path);
 ALTER TABLE user_api_auth ADD CONSTRAINT IDX_user_api_auth_PK PRIMARY KEY (id, api_cd);
 ALTER TABLE user_api_auth ADD CONSTRAINT IDX_user_api_auth_FK0 FOREIGN KEY (api_cd) REFERENCES api (api_cd);
 ALTER TABLE user_api_auth ADD CONSTRAINT IDX_user_api_auth_FK1 FOREIGN KEY (id) REFERENCES user (id);
+
+
 
 INSERT INTO system_code_group VALUES(
 	'1001',

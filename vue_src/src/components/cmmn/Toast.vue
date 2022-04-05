@@ -1,7 +1,6 @@
 <template>
   <div :class="['toast-container', {'anim': isAnim}]" :style="{display:toastDisplay}">
     <div class="toast-box">
-      <img :style="{display:imgDisplay}" :src="imgSrc" alt="img" />
       <div class="toast-content">
         <p>{{ msg }}</p>
       </div>
@@ -14,6 +13,9 @@ export default {
     prop:[
         'imgSrc'
     ],
+    mounted() {
+        console.log(this.imgSrc)
+    },
     data() {
         return {
             toastDisplay: 'none',
@@ -30,11 +32,6 @@ export default {
                 this.isAnim = false
                 this.toastDisplay = 'none'
             }, 4000)
-        }
-    },
-    computed: {
-        imgDisplay() {
-            return this.imgSrc ? 'none' : 'none'
         }
     }
 };

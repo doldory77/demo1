@@ -3,7 +3,9 @@
 
 <sqlMap namespace="Common">
 
-	<typeAlias alias="packingVOHandler" type="demo.cmmn.service.PackingVOTypeHandler"/>
+	<typeAlias alias="objectToStringHandler" type="demo.cmmn.service.ObjectToStringTypeHandler"/>
+	<typeAlias alias="msgTrunkTypeHandler" type="demo.cmmn.service.MsgTrunkTypeHandler"/>
+	<typeAlias alias="msgDetailTrunkTypeHandler" type="demo.cmmn.service.MsgDetailTrunkTypeHandler"/>
 	<typeAlias alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
 	<typeAlias alias="packingVO" type="demo.cmmn.service.PackingVO"/>
 
@@ -11,8 +13,8 @@
 		<result property="id" column="id"/>
 		<result property="timestamp" column="timestamp"/>
 		<result property="path" column="path"/>
-		<result property="input" column="input" jdbcType="VARCHAR" typeHandler="packingVOHandler"/>
-		<result property="output" column="output"/>
+		<result property="input" column="input" jdbcType="VARCHAR" typeHandler="objectToStringHandler"/>
+		<result property="output" column="output" jdbcType="VARCHAR" typeHandler="objectToStringHandler"/>
 		<result property="code" column="code"/>
 		<result property="msg" column="msg"/>
 		<result property="msgDetail" column="msg_detail"/>
@@ -32,11 +34,11 @@
 			VALUES ( #id#
 				  , #timestamp#
 				  , #path#
-				  , #input,handler=packingVOHandler#
+				  , #input,handler=objectToStringHandler#
 				  , #output#
 				  , #code#
-				  , #msg#
-				  , #msgDetail# )
+				  , #msg,handler=msgTrunkTypeHandler#
+				  , #msgDetail,handler=msgDetailTrunkTypeHandler# )
 		]]>
 	</insert>
 	
@@ -53,6 +55,22 @@
                 , msg_detail
             FROM log 
             WHERE id = #id#
+        ]]>
+    </select>
+    
+    <select id="commonDAO.selectLogByRange" parameterClass="egovMap" resultMap="packing">
+        <![CDATA[
+            SELECT
+                id
+                , timestamp
+                , path
+                , input
+                , output
+                , code
+                , msg
+                , msg_detail
+            FROM log 
+            WHERE timestamp between #start# and #end#
         ]]>
     </select>
 
