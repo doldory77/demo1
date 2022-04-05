@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Common">
+
+	<typeAlias alias="packingVOHandler" type="demo.cmmn.service.PackingVOTypeHandler"/>
+	<typeAlias alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<typeAlias alias="packingVO" type="demo.cmmn.service.PackingVO"/>
+
+	<resultMap id="packing" class="demo.cmmn.service.PackingVO">
+		<result property="id" column="id"/>
+		<result property="timestamp" column="timestamp"/>
+		<result property="path" column="path"/>
+		<result property="input" column="input" jdbcType="VARCHAR" typeHandler="packingVOHandler"/>
+		<result property="output" column="output"/>
+		<result property="code" column="code"/>
+		<result property="msg" column="msg"/>
+		<result property="msgDetail" column="msg_detail"/>
+	</resultMap>
+
+	<insert id="commonDAO.insertLog" parameterClass="packingVO">
+		<![CDATA[
+			INSERT INTO LOG 
+				( id
+				  , timestamp
+				  , path
+				  , input
+				  , output
+				  , code
+				  , msg
+				  , msg_detail )
+			VALUES ( #id#
+				  , #timestamp#
+				  , #path#
+				  , #input,handler=packingVOHandler#
+				  , #output#
+				  , #code#
+				  , #msg#
+				  , #msgDetail# )
+		]]>
+	</insert>
+	
+    <select id="commonDAO.selectLogById" parameterClass="String" resultMap="packing">
+        <![CDATA[
+            SELECT
+                id
+                , timestamp
+                , path
+                , input
+                , output
+                , code
+                , msg
+                , msg_detail
+            FROM log 
+            WHERE id = #id#
+        ]]>
+    </select>
+
+</sqlMap>

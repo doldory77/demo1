@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="User">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<typeAlias  alias="searchVO" type="egovframework.example.sample.service.SampleDefaultVO"/>
+	<typeAlias  alias="userVO" type="demo.user.service.UserVO"/>
+
+	<resultMap id="user" class="demo.user.service.UserVO">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="cellPhoneNo" column="cell_phone_no"/>
+		<result property="useYn" column="use_yn"/>
+		<result property="birthday" column="birthday"/>
+		<result property="userKindCd" column="user_kind_cd"/>
+		<result property="email" column="email"/>
+		<result property="sessionKey" column="session_key"/>
+		<result property="sessionLimit" column="session_limit"/>
+	</resultMap>
+
+	<insert id="userDAO.insertUser" parameterClass="userVO">
+		<![CDATA[
+			INSERT INTO user 
+				( id
+				  , passwd
+				  , user_kind_cd
+				  , name
+				  , birthday
+				  , cell_phone_no
+				  , email
+				  , use_yn )
+			VALUES ( #id#
+				  , #passwd#
+				  , #userKindCd#
+				  , #name#
+				  , #birthday#
+				  , #cellPhoneNo#
+				  , #email#
+				  , #useYn# )
+		]]>
+	</insert>
+	
+	<update id="userDAO.updateUser" parameterClass="userVO">
+		<![CDATA[
+			UPDATE user
+			SET name=#name#
+				, birthday=#birthday#
+				, cell_phone_no=#cellPhoneNo#
+				, use_yn=#useYn#
+			WHERE id=#id#
+		]]>
+	</update>
+	
+	<delete id="userDAO.deleteUser">
+		<![CDATA[
+			UPDATE user
+			SET use_yn='N'
+			WHERE id=#id#
+		]]>
+	</delete>
+    
+    <select id="userDAO.selectUserById" parameterClass="userVO" resultMap="user">
+        <![CDATA[
+            SELECT
+                id, name, user_kind_cd, cell_phone_no, birthday, use_yn
+            FROM user 
+            WHERE id=#id#
+        ]]>
+    </select>
+	
+	<select id="userDAO.selectUserList" parameterClass="searchVO" resultMap="user">
+
+			SELECT
+				id, name, user_kind_cd, cell_phone_no, birthday, use_yn
+			FROM user
+			WHERE 1=1
+			<isEqual prepend="AND" property="searchCondition" compareValue="0">
+				ID LIKE '%' || #searchKeyword# || '%'
+			</isEqual>
+			<isEqual prepend="AND" property="searchCondition" compareValue="1">
+				NAME LIKE '%' || #searchKeyword# || '%'
+			</isEqual>
+			ORDER BY ID ASC
+			LIMIT #recordCountPerPage# OFFSET #firstIndex#		
+	</select>
+	
+	<select id="userDAO.selectUserListTotCnt" parameterClass="searchVO" resultClass="int">
+
+			SELECT COUNT(*) totcnt
+			FROM user
+			WHERE 1=1
+			<isEqual prepend="AND" property="searchCondition" compareValue="0">
+				ID LIKE '%' || #searchKeyword# || '%'
+			</isEqual>
+			<isEqual prepend="AND" property="searchCondition" compareValue="1">
+				NAME LIKE '%' || #searchKeyword# || '%'
+			</isEqual>
+	</select>
+
+</sqlMap>

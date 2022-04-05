@@ -1,0 +1,3 @@
+target/
+vue_src/node_modules/
+src/main/webapp/WEB-INF/lib/
