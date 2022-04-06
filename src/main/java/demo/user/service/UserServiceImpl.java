@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import demo.cmmn.service.CmmnUtil;
+import demo.cmmn.service.ErrorDefiner;
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import egovframework.rte.fdl.cryptography.EgovDigestService;
 import egovframework.rte.fdl.idgnr.impl.Base64;
@@ -25,9 +25,8 @@ public class UserServiceImpl extends EgovAbstractServiceImpl implements UserServ
 		try {
 			result = userDAO.insertUser(vo);
 		} catch (Exception e) {
-			String errorMsg = CmmnUtil.defineDBErrorMsg(e);
-			egovLogger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@ errorMsg : {}", errorMsg);
-			throw processException("fail.common.msg", e);
+			String errorCode = ErrorDefiner.defineDBErrorCd(e);
+			throw processException(errorCode, e);
 		}
 		
 		return result;

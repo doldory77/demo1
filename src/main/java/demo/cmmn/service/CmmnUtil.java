@@ -46,33 +46,4 @@ public class CmmnUtil {
 		} 
 	}
 	
-	public static String defineDBErrorMsg(Exception e) {
-		String errorMsg = "";
-		if (e instanceof BadSqlGrammarException) {
-			errorMsg = "SQL 문장 오류";
-		}
-		else if (e instanceof InvalidResultSetAccessException) {
-			errorMsg = "유효하지 않은 결과 접근 오류";
-		}
-		else if (e instanceof DuplicateKeyException) {
-			errorMsg = "중복 키 오류";
-		}
-		else if (e instanceof DataIntegrityViolationException) {
-			errorMsg = "오류";
-		}
-		else if (e instanceof DataAccessResourceFailureException) {
-			errorMsg = "오류";
-		}
-		else if (e instanceof CannotAcquireLockException) {
-			errorMsg = "오류";
-		}
-		else if (e instanceof DeadlockLoserDataAccessException) {
-			errorMsg = "오류";
-		}
-		else if (e instanceof CannotSerializeTransactionException) {
-			errorMsg = "오류";
-		}
-		return errorMsg;
-	}
-	
 }

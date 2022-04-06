@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springmodules.validation.commons.DefaultBeanValidator;
 
+import demo.cmmn.service.PackingVO;
 import demo.user.service.UserVO;
 import egovframework.example.sample.service.SampleVO;
 import egovframework.rte.psl.dataaccess.util.EgovMap;
@@ -64,5 +65,14 @@ public class CommonController extends BaseController {
 		}
 		
 		return map;
+	}
+	
+	@RequestMapping("/api/test04.do")
+	@ResponseBody
+	public PackingVO test04(@RequestBody EgovMap params) throws Exception {
+		PackingVO pack = getPack("", "", params);
+		@SuppressWarnings("unused")
+		int tmp = 100 / 0;
+		return pack;
 	}
 }

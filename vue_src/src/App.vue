@@ -18,10 +18,11 @@ export default {
   components: {},
   methods: {
     showToast() {
-      let msg = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumend incidunt eligendi non reiciendis blanditiis?"
-      this.$refs.toast.show(msg)
-    }
-  }
+      let msg =
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumend incidunt eligendi non reiciendis blanditiis?";
+      this.$refs.toast.show(msg);
+    },
+  },
 };
 </script>
 
@@ -35,7 +36,7 @@ export default {
     text-align: center;
     text-decoration: none;
     padding: 3px;
-    &:nth-of-type(n+2) {
+    &:nth-of-type(n + 2) {
       border-left: none;
     }
   }
