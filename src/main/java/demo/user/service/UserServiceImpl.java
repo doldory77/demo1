@@ -5,9 +5,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import demo.cmmn.service.ErrorDefiner;
+import demo.cmmn.service.PathVO;
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import egovframework.rte.fdl.cryptography.EgovDigestService;
 import egovframework.rte.fdl.idgnr.impl.Base64;
+import egovframework.rte.psl.dataaccess.util.EgovMap;
 
 @Service("userService")
 public class UserServiceImpl extends EgovAbstractServiceImpl implements UserService {
@@ -30,6 +32,11 @@ public class UserServiceImpl extends EgovAbstractServiceImpl implements UserServ
 		}
 		
 		return result;
+	}
+
+	@Override
+	public PathVO selectUserAuthApi(EgovMap params) throws Exception {
+		return userDAO.selectUserAuthApi(params);
 	}
 
 }

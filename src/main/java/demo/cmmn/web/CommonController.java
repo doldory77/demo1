@@ -75,4 +75,14 @@ public class CommonController extends BaseController {
 		int tmp = 100 / 0;
 		return pack;
 	}
+	
+	@RequestMapping("/api/menuCheck.do")
+	@ResponseBody
+	public PackingVO menuCheck(@RequestBody EgovMap params) throws Exception {
+		logger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		PackingVO pack = getPack("", "", params);
+		
+		
+		return pack;
+	}
 }

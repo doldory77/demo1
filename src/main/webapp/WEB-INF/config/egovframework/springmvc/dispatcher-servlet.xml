@@ -34,7 +34,8 @@
             <list>
                 <ref bean="localeChangeInterceptor" />
                 <ref bean="commonInterceptor" />
-                <ref bean="authCheckInterceptor" />
+                <ref bean="authMenuCheckInterceptor" />
+                <ref bean="authApiCheckInterceptor" />
             </list>
         </property>
     </bean>
@@ -45,7 +46,8 @@
         <property name="paramName" value="language" />
     </bean>
     <bean id="commonInterceptor" class="demo.cmmn.web.CommonInterceptor" />
-    <bean id="authCheckInterceptor" class="demo.cmmn.web.AuthCheckInterceptor" />
+    <bean id="authMenuCheckInterceptor" class="demo.cmmn.web.AuthMenuCheckInterceptor" />
+    <bean id="authApiCheckInterceptor" class="demo.cmmn.web.AuthApiCheckInterceptor" />
 
     <bean class="demo.cmmn.web.CustomSimpleMappingExceptionResolver">
         <property name="defaultErrorView" value="cmmn/jsonErrorView"/>

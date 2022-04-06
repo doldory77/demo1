@@ -38,6 +38,16 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 		params.put("end", end);
 		return commonDAO.selectLogByRange(params);
 	}
+
+	@Override
+	public PathVO selectMenuByPath(String path) throws Exception {
+		return commonDAO.selectMenuByPath(path);
+	}
+
+	@Override
+	public PathVO selectApiByPath(String path) throws Exception {
+		return commonDAO.selectApiByPath(path);
+	}
 	
 	
 }

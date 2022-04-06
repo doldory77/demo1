@@ -23,4 +23,12 @@ public class CommonDAO extends EgovAbstractDAO {
 		return (List<PackingVO>) list("commonDAO.selectLogByRange", params);
 	}
 	
+	public PathVO selectMenuByPath(String path) throws Exception {
+		return (PathVO) select("commonDAO.selectMenuByPath", path);
+	}
+	
+	public PathVO selectApiByPath(String path) throws Exception {
+		return (PathVO) select("commonDAO.selectApiByPath", path);
+	}
+	
 }

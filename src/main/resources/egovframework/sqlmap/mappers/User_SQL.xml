@@ -18,6 +18,12 @@
 		<result property="sessionKey" column="session_key"/>
 		<result property="sessionLimit" column="session_limit"/>
 	</resultMap>
+	
+	<resultMap id="api" class="demo.cmmn.service.PathVO">
+		<result property="path" column="path"/>
+		<result property="name" column="use_detail"/>
+		<result property="loginRequireYn" column="login_require_yn"/>
+	</resultMap>
 
 	<insert id="userDAO.insertUser" parameterClass="userVO">
 		<![CDATA[
@@ -66,6 +72,20 @@
                 id, name, user_kind_cd, cell_phone_no, birthday, use_yn
             FROM user 
             WHERE id=#id#
+        ]]>
+    </select>
+    
+    <select id="userDAO.selectUserAuthApi" parameterClass="egovMap" resultMap="api">
+        <![CDATA[
+            SELECT
+                b.path
+                , b.use_detail
+                , b.login_require_yn
+            FROM user_api_auth a,
+            	api b
+            WHERE a.api_cd=b.api_cd
+            	AND a.id = #id#
+            	AND b.path = #path#
         ]]>
     </select>
 	

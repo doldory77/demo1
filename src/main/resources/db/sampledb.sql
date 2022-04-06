@@ -163,7 +163,7 @@ ALTER TABLE api ADD CONSTRAINT IDX_api_1 UNIQUE (path);
 
 ALTER TABLE user_api_auth ADD CONSTRAINT IDX_user_api_auth_PK PRIMARY KEY (id, api_cd);
 ALTER TABLE user_api_auth ADD CONSTRAINT IDX_user_api_auth_FK0 FOREIGN KEY (api_cd) REFERENCES api (api_cd);
-ALTER TABLE user_api_auth ADD CONSTRAINT IDX_user_api_auth_FK1 FOREIGN KEY (id) REFERENCES user (id);
+/*ALTER TABLE user_api_auth ADD CONSTRAINT IDX_user_api_auth_FK1 FOREIGN KEY (id) REFERENCES user (id);*/
 
 
 
@@ -357,6 +357,11 @@ INSERT INTO api (api_cd, path, use_detail, login_require_yn) values (
 	'/api/user/login.do',
 	'로그인',
 	'N'
+);
+
+INSERT INTO user_api_auth (id, api_cd) values (
+	'doldory',
+	'0002'
 );
 
 SET SCHEMA PUBLIC

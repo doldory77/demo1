@@ -168,6 +168,9 @@ public class ErrorDefiner {
 		else if (e instanceof LoginRequireException) {
 			errorCode = "8036";
 		}
+		else if (e instanceof AccessDeniedException) {
+			errorCode = "8037";
+		}
 		
 		return errorCode;
 	}

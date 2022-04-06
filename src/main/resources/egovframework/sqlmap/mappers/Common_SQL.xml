@@ -19,7 +19,19 @@
 		<result property="msg" column="msg"/>
 		<result property="msgDetail" column="msg_detail"/>
 	</resultMap>
-
+	
+	<resultMap id="menu" class="demo.cmmn.service.PathVO">
+		<result property="path" column="path"/>
+		<result property="name" column="menu_nm"/>
+		<result property="loginRequireYn" column="login_require_yn"/>
+	</resultMap>
+	
+	<resultMap id="api" class="demo.cmmn.service.PathVO">
+		<result property="path" column="path"/>
+		<result property="name" column="use_detail"/>
+		<result property="loginRequireYn" column="login_require_yn"/>
+	</resultMap>
+	
 	<insert id="commonDAO.insertLog" parameterClass="packingVO">
 		<![CDATA[
 			INSERT INTO LOG 
@@ -73,5 +85,27 @@
             WHERE timestamp between #start# and #end#
         ]]>
     </select>
+    
+    <select id="commonDAO.selectMenuByPath" parameterClass="String" resultMap="menu">
+        <![CDATA[
+            SELECT
+                path
+                , menu_nm
+                , login_require_yn
+            FROM menu 
+            WHERE path = #path#
+        ]]>
+    </select>
+        
+    <select id="commonDAO.selectApiByPath" parameterClass="String" resultMap="api">
+        <![CDATA[
+            SELECT
+                path
+                , use_detail
+                , login_require_yn
+            FROM api 
+            WHERE path = #path#
+        ]]>
+    </select>    
 
 </sqlMap>
