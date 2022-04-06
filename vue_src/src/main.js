@@ -4,9 +4,16 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import Toast from "@/components/cmmn/Toast";
+import Loading from "@/components/cmmn/Loading";
 
 Vue.config.productionTip = false;
+
+// 공통 이벤트(함수) 수신 및 송신 체널 생성
+Vue.prototype.$EventBus = new Vue();
+
+// 전역 컴포넌트 등록
 Vue.component("toast", Toast);
+Vue.component("loading", Loading);
 
 new Vue({
   router,

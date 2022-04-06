@@ -34,6 +34,7 @@
             <list>
                 <ref bean="localeChangeInterceptor" />
                 <ref bean="commonInterceptor" />
+                <ref bean="authCheckInterceptor" />
             </list>
         </property>
     </bean>
@@ -44,6 +45,7 @@
         <property name="paramName" value="language" />
     </bean>
     <bean id="commonInterceptor" class="demo.cmmn.web.CommonInterceptor" />
+    <bean id="authCheckInterceptor" class="demo.cmmn.web.AuthCheckInterceptor" />
 
     <bean class="demo.cmmn.web.CustomSimpleMappingExceptionResolver">
         <property name="defaultErrorView" value="cmmn/jsonErrorView"/>
@@ -61,12 +63,6 @@
 	    p:viewClass="org.springframework.web.servlet.view.JstlView"
 	    p:prefix="/WEB-INF/jsp/egovframework/example/" p:suffix=".jsp"/>
 	    
-	<!-- <mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/api/*"/>
-			<bean class="demo.cmmn.web.CommonInterceptor" />
-		</mvc:interceptor>
-	</mvc:interceptors> -->	     
 
     <!-- For Pagination Tag
     <bean id="imageRenderer" class="egovframework.example.cmmn.web.EgovImgPaginationRenderer"/>

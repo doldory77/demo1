@@ -1,6 +1,7 @@
 package demo.cmmn.service;
 
 import java.sql.SQLException;
+import java.sql.Types;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,11 @@ public class MsgDetailTrunkTypeHandler implements TypeHandlerCallback {
 	@Override
 	public void setParameter(ParameterSetter setter, Object parameter) throws SQLException {
 		try {
-			setter.setString(CmmnUtil.subStrBytes(parameter.toString(), 3000));
+			if (parameter != null) {
+				setter.setString(CmmnUtil.subStrBytes(parameter.toString(), 3000));
+			} else {
+				setter.setNull(Types.VARCHAR);
+			}
 		} catch (Exception e) {
 			logger.error("MsgDetailTrunkTypeHandler.setParameter : ", e);
 		}

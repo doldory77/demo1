@@ -19,7 +19,7 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-		logger.debug("[{}] 진입", request.getRequestURI());
+		logger.debug("CommonInterceptor [{}] 진입", request.getRequestURI());
 		
 		PackingVO pack = new PackingVO();
 		pack.setPath(request.getRequestURI());

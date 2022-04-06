@@ -5,6 +5,7 @@
       <router-link class="menu" to="/user/login">로그인</router-link><br />
     </div>
     <router-view></router-view>
+    <loading ref="loading"></loading>
     <toast ref="toast"></toast>
   </div>
 </template>
@@ -15,12 +16,41 @@ import lifeCycle from "@/mixins/lifeCycle";
 
 export default {
   mixins: [lifeCycle],
+  created() {
+    // 부모객체에서 공통 수신함수 등록
+    this.$EventBus.$on("showLoading", () => {
+      this.showLoading();
+    });
+    // axios 요청과 응답 직전 공통 처리
+    this.$axios.interceptors.request.use(
+      (config) => {
+        this.$refs.loading.show();
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
+
+    this.$axios.interceptors.response.use(
+      (res) => {
+        this.$refs.loading.off();
+        return res;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
+  },
   components: {},
   methods: {
     showToast() {
       let msg =
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumend incidunt eligendi non reiciendis blanditiis?";
       this.$refs.toast.show(msg);
+    },
+    showLoading() {
+      this.$refs.loading.show();
     },
   },
 };

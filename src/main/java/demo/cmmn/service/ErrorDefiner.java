@@ -165,6 +165,9 @@ public class ErrorDefiner {
 		else if (e instanceof UnsupportedOperationException) {
 			errorCode = "8035";
 		}
+		else if (e instanceof LoginRequireException) {
+			errorCode = "8036";
+		}
 		
 		return errorCode;
 	}

@@ -1,6 +1,7 @@
 package demo.cmmn.service;
 
 import java.sql.SQLException;
+import java.sql.Types;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,11 @@ public class ObjectToStringTypeHandler implements TypeHandlerCallback {
 	@Override
 	public void setParameter(ParameterSetter setter, Object parameter) throws SQLException {
 		try {
-			if (parameter != null) setter.setString(parameter.getClass().getName() + "@" + parameter.toString());
+			if (parameter != null) {
+				setter.setString(parameter.getClass().getName() + "@" + parameter.toString());
+			} else {
+				setter.setNull(Types.VARCHAR);
+			}
 		} catch (Exception e) {
 			logger.error("ObjectToStringTypeHandler.setParameter : ", e);
 		}

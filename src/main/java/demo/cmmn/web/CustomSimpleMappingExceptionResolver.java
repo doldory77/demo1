@@ -48,15 +48,14 @@ public class CustomSimpleMappingExceptionResolver extends SimpleMappingException
 			EgovBizException egovEx = (EgovBizException) ex;
 			errorCode = egovEx.getMessageKey();
 			errorMsg = egovEx.getMessage();
-			errorMsgDetail = messageSource.getMessage(errorCode.concat(".detail"), null, Locale.getDefault());
 			errorExportMsg = egovEx.getWrappedException().getMessage();
 		} else if (ex != null && ex instanceof Exception) {
 			// 일반 오류
 			errorCode = ErrorDefiner.defineNormalErrorCd(ex);
 			errorMsg = messageSource.getMessage(errorCode, null, Locale.getDefault());
-			errorMsgDetail = ex.getMessage();
 			errorExportMsg = ex.getMessage();
 		}
+		errorMsgDetail = messageSource.getMessage(errorCode.concat(".detail"), null, Locale.getDefault());
 		
 		request.setAttribute("errorCode", errorCode);
 		request.setAttribute("errorMsg", errorMsg);
@@ -67,6 +66,7 @@ public class CustomSimpleMappingExceptionResolver extends SimpleMappingException
 			pack.setCode(errorCode);
 			pack.setMsg(errorMsg);
 			pack.setMsgDetail(errorExportMsg);
+			
 			// 에러 로그정보를 DB에 저장(부하가 클경우 파일로 저장 후 스케쥴 배치로 처리)
 			commonService.insertLog(pack);
 			pack.setMsgDetail(errorMsgDetail);
