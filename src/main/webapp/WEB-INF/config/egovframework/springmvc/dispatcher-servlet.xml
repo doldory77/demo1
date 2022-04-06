@@ -47,7 +47,14 @@
     </bean>
     <bean id="commonInterceptor" class="demo.cmmn.web.CommonInterceptor" />
     <bean id="authMenuCheckInterceptor" class="demo.cmmn.web.AuthMenuCheckInterceptor" />
-    <bean id="authApiCheckInterceptor" class="demo.cmmn.web.AuthApiCheckInterceptor" />
+    <bean id="authApiCheckInterceptor" class="demo.cmmn.web.AuthApiCheckInterceptor">
+    	<property name="publicApiURLMap">
+    		<set>
+    			<value>/api/user/login.do</value>
+    			<value>/api/user/joinUser.do</value>
+    		</set>
+    	</property>
+    </bean>
 
     <bean class="demo.cmmn.web.CustomSimpleMappingExceptionResolver">
         <property name="defaultErrorView" value="cmmn/jsonErrorView"/>

@@ -3,12 +3,12 @@ export default {
   state: {
     users: [],
     user: {
-      id: "dolodry",
+      id: "dolodry2",
       passwd: "1234",
       userKindCd: "0004",
-      name: "홍길동",
-      birthday: "19770404",
-      cellPhoneNo: "010-2482-9999",
+      name: "이순신",
+      birthday: "19770505",
+      cellPhoneNo: "010-3333-4444",
       useYn: "Y",
       grade_history: [],
       addrs: [
@@ -86,7 +86,7 @@ export default {
       window
         .axios({
           method: "POST",
-          url: "/api/joinUser.do",
+          url: "/api/user/joinUser.do",
           data: state.user,
         })
         .then((res) => {

@@ -69,7 +69,11 @@
     <select id="userDAO.selectUserById" parameterClass="userVO" resultMap="user">
         <![CDATA[
             SELECT
-                id, name, user_kind_cd, cell_phone_no, birthday, use_yn
+                id
+                , name
+                , user_kind_cd
+                , cell_phone_no
+                , birthday, use_yn
             FROM user 
             WHERE id=#id#
         ]]>

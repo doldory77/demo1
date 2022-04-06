@@ -13,7 +13,7 @@ CREATE TABLE user(
 		cell_phone_no VARCHAR(13),
 		email VARCHAR(30),
 		session_key VARCHAR(80),
-		session_limit TIMESTAMP,
+		session_limit VARCHAR(17),
 		use_yn CHAR(1) DEFAULT 'Y',
 		create_user_id VARCHAR(20),
 		create_dt DATETIME,
@@ -139,6 +139,7 @@ CREATE TABLE log(
 
 
 ALTER TABLE user ADD CONSTRAINT IDX_user_PK PRIMARY KEY (id);
+CREATE INDEX IDX_user_1 ON user (session_key);
 
 ALTER TABLE user_grade_history ADD CONSTRAINT IDX_user_grade_history_PK PRIMARY KEY (id, grade_cd, create_dt);
 ALTER TABLE user_grade_history ADD CONSTRAINT IDX_user_grade_history_FK0 FOREIGN KEY (id) REFERENCES user (id);
@@ -163,8 +164,7 @@ ALTER TABLE api ADD CONSTRAINT IDX_api_1 UNIQUE (path);
 
 ALTER TABLE user_api_auth ADD CONSTRAINT IDX_user_api_auth_PK PRIMARY KEY (id, api_cd);
 ALTER TABLE user_api_auth ADD CONSTRAINT IDX_user_api_auth_FK0 FOREIGN KEY (api_cd) REFERENCES api (api_cd);
-/*ALTER TABLE user_api_auth ADD CONSTRAINT IDX_user_api_auth_FK1 FOREIGN KEY (id) REFERENCES user (id);*/
-
+ALTER TABLE user_api_auth ADD CONSTRAINT IDX_user_api_auth_FK1 FOREIGN KEY (id) REFERENCES user (id);
 
 
 INSERT INTO system_code_group VALUES(
@@ -359,10 +359,31 @@ INSERT INTO api (api_cd, path, use_detail, login_require_yn) values (
 	'N'
 );
 
-INSERT INTO user_api_auth (id, api_cd) values (
+/*INSERT INTO user (
+	id,
+	passwd,
+	user_kind_cd,
+	name,
+	birthday,
+	cell_phone_no,
+	email,
+	use_yn
+) values (
 	'doldory',
-	'0002'
+	'vv7VOOZ+G70DVzdvxNKwYAc811oYwfv5cO9MFNcGsUVWfeyunefdxg==',
+	'0004',
+	'홍길동',
+	'19770404',
+	'010-2482-9999',
+	'doldory@naver.com',
+	'Y'
 );
+
+	INSERT INTO user_api_auth (id, api_cd) values (
+		'doldory',
+		'0002'
+	);*/
+
 
 SET SCHEMA PUBLIC
 INSERT INTO SAMPLE VALUES('SAMPLE-00001','Runtime Environment','Foundation Layer','Y','eGov')

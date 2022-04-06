@@ -11,7 +11,7 @@ CREATE TABLE user(
 		cell_phone_no VARCHAR(13),
 		email VARCHAR(30),
 		session_key VARCHAR(80),
-		session_limit TIMESTAMP,
+		session_limit VARCHAR(17),
 		use_yn CHAR(1) DEFAULT 'Y',
 		create_user_id VARCHAR(20),
 		create_dt DATETIME,
@@ -137,6 +137,7 @@ CREATE TABLE log(
 
 
 ALTER TABLE user ADD CONSTRAINT IDX_user_PK PRIMARY KEY (id);
+CREATE INDEX IDX_user_1 ON user (session_key);
 
 ALTER TABLE user_grade_history ADD CONSTRAINT IDX_user_grade_history_PK PRIMARY KEY (id, grade_cd, create_dt);
 ALTER TABLE user_grade_history ADD CONSTRAINT IDX_user_grade_history_FK0 FOREIGN KEY (id) REFERENCES user (id);

@@ -12,6 +12,7 @@ import demo.cmmn.service.PackingVO;
 import demo.cmmn.web.BaseController;
 import demo.user.service.UserService;
 import demo.user.service.UserVO;
+import egovframework.rte.psl.dataaccess.util.EgovMap;
 
 //@CrossOrigin(origins="*", allowCredentials="true")
 @Controller
@@ -23,7 +24,7 @@ public class UserController extends BaseController {
 	@Resource(name="commonService")
 	CommonService commonService;
 	
-	@RequestMapping("/api/joinUser.do")
+	@RequestMapping("/api/user/joinUser.do")
 	@ResponseBody
 	public PackingVO joinUser(@RequestBody UserVO vo) throws Exception {
 		
@@ -39,6 +40,14 @@ public class UserController extends BaseController {
 		
 		return pack;
 		
+	}
+	
+	@RequestMapping("/api/user/login.do")
+	@ResponseBody
+	public PackingVO login(@RequestBody EgovMap params) throws Exception {
+		PackingVO pack = getPack();
+		
+		return pack;
 	}
 	
 }
