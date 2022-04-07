@@ -7,5 +7,7 @@ public interface UserService {
 
 	public String insertUser(UserVO vo) throws Exception;
 	public PathVO selectUserAuthApi(EgovMap params) throws Exception;
+	public UserVO selectUserByIdAndPasswd(EgovMap params) throws Exception;
+	public int updateUserSessionById(EgovMap params) throws Exception;
 	
 }

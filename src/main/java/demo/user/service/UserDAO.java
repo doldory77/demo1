@@ -16,4 +16,12 @@ public class UserDAO extends EgovAbstractDAO {
 	public PathVO selectUserAuthApi(EgovMap params) throws Exception {
 		return (PathVO) select("userDAO.selectUserAuthApi", params);
 	}
+	
+	public UserVO selectUserByIdAndPasswd(EgovMap params) throws Exception {
+		return (UserVO) select("userDAO.selectUserByIdAndPasswd", params);
+	}
+	
+	public int updateUserSessionById(EgovMap params) throws Exception {
+		return update("userDAO.updateUserSessionById", params);
+	}
 }

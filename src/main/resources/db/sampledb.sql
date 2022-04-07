@@ -359,7 +359,7 @@ INSERT INTO api (api_cd, path, use_detail, login_require_yn) values (
 	'N'
 );
 
-/*INSERT INTO user (
+INSERT INTO user (
 	id,
 	passwd,
 	user_kind_cd,
@@ -370,7 +370,7 @@ INSERT INTO api (api_cd, path, use_detail, login_require_yn) values (
 	use_yn
 ) values (
 	'doldory',
-	'vv7VOOZ+G70DVzdvxNKwYAc811oYwfv5cO9MFNcGsUVWfeyunefdxg==',
+	'03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4',
 	'0004',
 	'홍길동',
 	'19770404',
@@ -382,7 +382,7 @@ INSERT INTO api (api_cd, path, use_detail, login_require_yn) values (
 	INSERT INTO user_api_auth (id, api_cd) values (
 		'doldory',
 		'0002'
-	);*/
+	);
 
 
 SET SCHEMA PUBLIC

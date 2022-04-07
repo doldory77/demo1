@@ -2,6 +2,7 @@ package demo.cmmn.web;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,9 @@ public class BaseController {
 	
 	@Autowired(required = true)
 	protected HttpServletRequest request;
+	
+	@Autowired(required = true)
+	protected HttpServletResponse response;
 	
 	@Resource(name = "messageSource")
 	protected MessageSource messageSource;
@@ -45,6 +49,10 @@ public class BaseController {
 	
 	protected PackingVO getPack(String code, String msg, Object in) {
 		return getPack("", code, msg, "", in, null);
+	}
+	
+	protected PackingVO getPack(String code, String msg, Object in, Object out) {
+		return getPack("", code, msg, "", in, out);
 	}
 	
 }

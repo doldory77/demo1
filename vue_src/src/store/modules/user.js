@@ -3,8 +3,8 @@ export default {
   state: {
     users: [],
     user: {
-      id: "dolodry2",
-      passwd: "1234",
+      id: "",
+      passwd: "",
       userKindCd: "0004",
       name: "이순신",
       birthday: "19770505",
@@ -39,6 +39,9 @@ export default {
     },
   },
   mutations: {
+    assignUser(state, user) {
+      Object.assign(state.user, user);
+    },
     setUsers(state, users) {
       state.users = users;
     },
@@ -81,6 +84,21 @@ export default {
           }
         });
     },
+    loginUser({ commit, state }, params) {
+      window
+        .axios({
+          method: "POST",
+          url: "/api/user/login.do",
+          data: { id: state.user.id, passwd: state.user.passwd },
+        })
+        .then((res) => {
+          console.log(res);
+          commit("assignUser", res.data.output);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     addUser({ commit, state }, params) {
       // console.log(JSON.stringify(state.user));
       window
@@ -94,6 +112,20 @@ export default {
         })
         .catch((error) => {
           console.error(error);
+        });
+    },
+    menuCheck({ commit, state }, params) {
+      window
+        .axios({
+          method: "GET",
+          url: "/api/menuCheck.do",
+          params: { menu: params.path },
+        })
+        .then((res) => {
+          params.callback(res.data.code);
+        })
+        .catch((error) => {
+          console.log(error);
         });
     },
   },

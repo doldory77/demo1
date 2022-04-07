@@ -26,6 +26,7 @@ import org.springframework.dao.DeadlockLoserDataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.InvalidResultSetAccessException;
+import org.springframework.jdbc.UncategorizedSQLException;
 
 public class ErrorDefiner {
 	private static final Logger logger = LoggerFactory.getLogger(ErrorDefiner.class);
@@ -56,6 +57,9 @@ public class ErrorDefiner {
 		}
 		else if (e instanceof CannotSerializeTransactionException) {
 			errorCode = "9008";
+		}
+		else if (e instanceof UncategorizedSQLException) {
+			errorCode = "9009";
 		}
 		logger.debug("##Exception Type : [{}] & mapped ErrorCode : [{}]", e.getClass().getName(), errorCode);
 		return errorCode;
@@ -170,6 +174,9 @@ public class ErrorDefiner {
 		}
 		else if (e instanceof AccessDeniedException) {
 			errorCode = "8037";
+		}
+		else if (e instanceof NotExistUserException) {
+			errorCode = "8038";
 		}
 		
 		return errorCode;

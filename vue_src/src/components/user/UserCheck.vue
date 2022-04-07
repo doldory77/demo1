@@ -24,8 +24,7 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapGetters, mapMutations, mapActions } =
-  createNamespacedHelpers("user");
+const { mapGetters, mapMutations } = createNamespacedHelpers("user");
 export default {
   computed: {
     ...mapGetters(["getUser"]),

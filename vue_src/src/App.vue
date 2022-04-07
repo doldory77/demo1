@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <div class="menu-container">
-      <router-link class="menu" to="/user/join">회원가입</router-link><br />
-      <router-link class="menu" to="/user/login">로그인</router-link><br />
+      <router-link class="menu" to="/api/user/memberJoin">회원가입</router-link
+      ><br />
+      <router-link class="menu" to="/api/user/login">로그인</router-link><br />
     </div>
     <router-view></router-view>
     <loading ref="loading"></loading>

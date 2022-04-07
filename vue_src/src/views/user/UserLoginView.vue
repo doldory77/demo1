@@ -2,7 +2,7 @@
   <div>
     <h1>로그인</h1>
     <user-check>
-      <button @click="alarm">확인</button>
+      <button @click="loginUser">확인</button>
     </user-check>
   </div>
 </template>
@@ -17,7 +17,7 @@ export default {
     ...mapGetters(["getUserIdentify"]),
   },
   methods: {
-    ...mapActions(["fetchUsers", "addUser"]),
+    ...mapActions(["fetchUsers", "addUser", "loginUser"]),
     alarm() {
       alert(this.getUserIdentify);
     },
