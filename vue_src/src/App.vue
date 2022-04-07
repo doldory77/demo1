@@ -4,6 +4,7 @@
       <router-link class="menu" to="/api/user/memberJoin">회원가입</router-link
       ><br />
       <router-link class="menu" to="/api/user/login">로그인</router-link><br />
+      <router-link class="menu" to="/api/user/myInfo">나의정보</router-link><br />
     </div>
     <router-view></router-view>
     <loading ref="loading"></loading>

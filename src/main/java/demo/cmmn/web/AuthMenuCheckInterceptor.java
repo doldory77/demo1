@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +40,9 @@ public class AuthMenuCheckInterceptor extends HandlerInterceptorAdapter {
 			
 			PathVO path = commonService.selectMenuByPath(menuPath);
 			if (path == null || "Y".equals(path.getLoginRequireYn())) {
-				UserVO user = (UserVO) request.getSession().getAttribute(CmmnConst.USER_INFO);
+				HttpSession session = request.getSession();
+				logger.debug("AuthMenuCheckInterceptor session ID : [{}]", session.getId());
+				UserVO user = (UserVO) session.getAttribute(CmmnConst.USER_INFO);
 				if (user == null) {
 					
 					throw new LoginRequireException("로그인이 필요 합니다.");

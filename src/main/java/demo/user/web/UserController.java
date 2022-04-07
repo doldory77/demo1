@@ -58,7 +58,8 @@ public class UserController extends BaseController {
 		}
 		// 세션에 사용자정보 등록
 		HttpSession session = request.getSession();
-		session.setAttribute(CmmnConst.USER, user);
+		logger.debug("session ID : [{}]", session.getId());
+		session.setAttribute(CmmnConst.USER_INFO, user);
 		String autoExtendYn = (String) params.get("isAutoExtend");
 		if (autoExtendYn != null && "Y".equalsIgnoreCase(autoExtendYn)) {
 			// 로그인시 자동 세션 연장 요청이면 쿠키에 세션키 저장

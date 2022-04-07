@@ -15,17 +15,26 @@
         :value="getUser.passwd"
         @input="setUserPasswd"
       />
+      <label class="item text-label">이름 :</label
+      ><input class="item text-field" type="text" :value="getUser.name" />
+      <label class="item text-label">생년월일 :</label
+      ><input class="item text-field" type="text" :value="getUser.birthday" />
+      <label class="item text-label">핸드폰 번호 :</label
+      ><input
+        class="item text-field"
+        type="text"
+        :value="getUser.cellPhoneNo"
+      />
     </div>
-    <div class="toolbar right">
-      <input type="checkbox"> 자동로그인
-      <slot></slot>
-    </div>
+    <slot></slot>
   </div>
 </template>
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapGetters, mapMutations } = createNamespacedHelpers("user");
+const { mapGetters, mapMutations, mapActions } =
+  createNamespacedHelpers("user");
+
 export default {
   computed: {
     ...mapGetters(["getUser"]),
@@ -36,7 +45,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .container {
   width: 50%;
 }
