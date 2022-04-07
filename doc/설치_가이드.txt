@@ -1,0 +1,13 @@
+1. 설처환경
+ - java : java version "1.8.0_291"
+ - Java IDE : eGovFrameDev-3.10.0-64bit
+ - VueJS IDE : Visual Studio Code (Version: 1.63.2)
+ - Node.JS : v14.17.5
+ - VueCLI : @vue/cli 4.5.15
+ - GIT : version 2.32.0.windows.2
+ 
+ 2. 설치순서
+  2.1 git clone 으로 프로젝트 복사
+  2.2 eGovFrame 실행 후 프로젝트 import
+  2.3 프로젝트 선택 > 오른쪽버튼 > Maven Update 실행
+  2.4 demo1/vue_src 경로에서 

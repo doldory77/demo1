@@ -31,7 +31,7 @@ public class AuthMenuCheckInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		logger.debug("AuthCheckInterceptor [{}] 진입", request.getRequestURI());
+		logger.debug("AuthMenuCheckInterceptor [{}] 진입", request.getRequestURI());
 		
 		if (CmmnConst.MENU_PAGE_CHECK_URL.equals(request.getRequestURI())) {
 			String menuPath = request.getParameter("menu");
