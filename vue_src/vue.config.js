@@ -6,6 +6,10 @@ module.exports = {
     proxy: {
       "/api": {
         target: "http://localhost:8080",
+        ws: true,
+        changeOrigin: true,
+        // cookieDomainRewrite: { "localhost:8080": "localhost:8888" },
+        logLevel: "debug",
       },
     },
     port: 8888,

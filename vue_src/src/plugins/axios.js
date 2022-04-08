@@ -13,10 +13,13 @@ let config = {
   timeout: 60 * 1000, // Timeout
   headers: {
     post: {
-      "Content-Type": "application/json;charset=UTF-8",
+      "Content-Type": "application/json;charset=UTF-8"
+    },
+    get: {
+      "Content-Type": "application/json;charset=UTF-8"
     },
   },
-  // withCredentials: true, // Check cross-site Access-Control
+  withCredentials: true, // Check cross-site Access-Control
 };
 
 const _axios = axios.create(config);

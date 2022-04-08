@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import store from "../store";
 import UserJoin from "../views/user/UserJoinView";
 import UserLogin from "../views/user/UserLoginView";
-import UserDetail from "../views/user/UserDetailView.vue"
+import UserDetail from "../views/user/UserDetailView.vue";
 
 Vue.use(VueRouter);
 

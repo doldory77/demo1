@@ -1,26 +1,24 @@
 <template>
   <div>
     <user-info>
-        <div class="toolbar right">
-            <button @click="addUser">저장</button>
-        </div>
+      <div class="toolbar right">
+        <button @click="addUser">저장</button>
+      </div>
     </user-info>
   </div>
 </template>
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-import UserInfo from '../../components/user/UserInfo.vue';
+import UserInfo from "../../components/user/UserInfo.vue";
 const { mapGetters, mapMutations, mapActions } =
   createNamespacedHelpers("user");
 
 export default {
   components: { UserInfo },
-  computed: {
-  },
+  computed: {},
   methods: {
     ...mapActions(["fetchUsers", "addUser"]),
-    
   },
 };
 </script>

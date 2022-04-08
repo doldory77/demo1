@@ -17,7 +17,7 @@
       />
     </div>
     <div class="toolbar right">
-      <input type="checkbox"> 자동로그인
+      <input type="checkbox" /> 자동로그인
       <slot></slot>
     </div>
   </div>

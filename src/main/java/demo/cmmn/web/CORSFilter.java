@@ -15,10 +15,11 @@ public class CORSFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 
-		response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-		response.addHeader("Access-Control-Allow-Headers", "Content-Type");
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.addHeader("Access-Control-Max-Age", "1");
+		response.addHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+		response.addHeader("Access-Control-Allow-Headers", "withcredentials, Content-Type");
+		response.addHeader("Access-Control-Allow-Credentials", "true");
+		response.setHeader("Access-Control-Allow-Origin", "http://localhost:8888");
+		response.addHeader("Access-Control-Max-Age", "86400");
 		
 		filterChain.doFilter(request, response);
 	}
