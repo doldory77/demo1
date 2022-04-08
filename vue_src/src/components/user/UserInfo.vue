@@ -1,30 +1,51 @@
 <template>
-  <div class="container">
-    <div class="flex-container">
-      <label class="item text-label">아이디 :</label
-      ><input
-        class="item text-field"
-        type="text"
-        :value="getUser.id"
-        @input="setUserId"
-      />
-      <label class="item text-label">비밀번호 :</label
-      ><input
-        class="item text-field"
-        type="password"
-        :value="getUser.passwd"
-        @input="setUserPasswd"
-      />
-      <label class="item text-label">이름 :</label
-      ><input class="item text-field" type="text" :value="getUser.name" />
-      <label class="item text-label">생년월일 :</label
-      ><input class="item text-field" type="text" :value="getUser.birthday" />
-      <label class="item text-label">핸드폰 번호 :</label
-      ><input
-        class="item text-field"
-        type="text"
-        :value="getUser.cellPhoneNo"
-      />
+  <div class="userinfo-container">
+    <div>
+      <div class="row">
+        <label class="item text-label">아이디 :</label
+        ><input
+          class="item text-field"
+          type="text"
+          :disabled="isDisabled === 1"
+          v-model="user.id"
+        />
+      </div>
+      <div class="row">
+        <label class="item text-label">비밀번호 :</label
+        ><input
+          class="item text-field"
+          type="password"
+          v-model="user.passwd"
+          :disabled="isDisabled === 1"
+        />
+      </div>
+      <div class="row">
+        <label class="item text-label">이름 :</label
+        ><input
+          class="item text-field"
+          type="text"
+          :disabled="isDisabled === 1"
+          v-model="user.name"
+        />
+      </div>
+      <div class="row">
+        <label class="item text-label">생년월일 :</label
+        ><input
+          class="item text-field"
+          type="text"
+          :disabled="isDisabled === 1"
+          v-model="user.birthday"
+        />
+      </div>
+      <div class="row">
+        <label class="item text-label">핸드폰 번호 :</label
+        ><input
+          class="item text-field"
+          type="text"
+          :disabled="isDisabled === 1"
+          v-model="user.cellPhoneNo"
+        />
+      </div>
     </div>
     <slot></slot>
   </div>
@@ -32,35 +53,52 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapGetters, mapMutations, mapActions } =
+const { mapGetters } =
   createNamespacedHelpers("user");
 
 export default {
+  data() {
+    return {
+      user: {
+        id: "",
+        passwd: "",
+        userKindCd: "0004",
+        name: "",
+        birthday: "",
+        cellPhoneNo: "",
+      },
+    };
+  },
+  created() {
+    if (this.isNew === 0) {
+      Object.assign(this.user, this.getUser);
+    }
+  },
+  props: ["isDisabled", "isNew"],
   computed: {
     ...mapGetters(["getUser"]),
-  },
-  methods: {
-    ...mapMutations(["setUserId", "setUserPasswd"]),
+    getUserInfo() {
+      return this.user;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.container {
-  width: 50%;
-}
-.toolbar {
-  padding: 5px 0;
-}
-.right {
-  text-align: right;
-}
-.flex-container {
-  display: flex;
-  flex-wrap: wrap;
-  .item {
-    flex: 1 1 40%;
-    margin-top: 5px;
+.userinfo-container {
+  margin: 0 auto;
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 3px 0;
+    label {
+      min-width: 200px;
+      flex: 0 0 auto;
+    };
+    input {
+      min-width: 200px;
+      flex: 1 0 auto;
+    }
   }
 }
 </style>

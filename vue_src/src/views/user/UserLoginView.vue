@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1>로그인</h1>
-    <user-check>
-      <button @click="loginUser">확인</button>
+    <user-check ref="userCheck">
+      <h3 slot="header" style="text-align:center;">로그인</h3>
+      <button slot="footer" class="item" @click="loginUserWrap">확인</button>
     </user-check>
   </div>
 </template>
@@ -13,13 +13,10 @@ const { mapGetters, mapActions } = createNamespacedHelpers("user");
 import UserCheck from "@/components/user/UserCheck";
 export default {
   components: { UserCheck },
-  computed: {
-    ...mapGetters(["getUserIdentify"]),
-  },
   methods: {
-    ...mapActions(["fetchUsers", "addUser", "loginUser"]),
-    alarm() {
-      alert(this.getUserIdentify);
+    ...mapActions(["loginUser"]),
+    loginUserWrap() {
+      this.loginUser(this.$refs.userCheck.getLoginInfo);
     },
   },
 };

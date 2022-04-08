@@ -21,6 +21,10 @@ public class UserDAO extends EgovAbstractDAO {
 		return (UserVO) select("userDAO.selectUserByIdAndPasswd", params);
 	}
 	
+	public UserVO selectUserBySessionKey(String sessionKey) throws Exception {
+		return (UserVO) select("userDAO.selectUserBySessionKey", sessionKey);
+	}
+	
 	public int updateUserSessionById(EgovMap params) throws Exception {
 		return update("userDAO.updateUserSessionById", params);
 	}

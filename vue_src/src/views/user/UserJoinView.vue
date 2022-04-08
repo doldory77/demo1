@@ -1,8 +1,8 @@
 <template>
   <div>
-    <user-info>
+    <user-info ref="userInfo" :isDisabled="0" :isNew="1">
       <div class="toolbar right">
-        <button @click="addUser">저장</button>
+        <button @click="joinUserWrap">저장</button>
       </div>
     </user-info>
   </div>
@@ -16,29 +16,22 @@ const { mapGetters, mapMutations, mapActions } =
 
 export default {
   components: { UserInfo },
-  computed: {},
+  computed: {
+    ...mapGetters(["getUser"]),
+  },
   methods: {
-    ...mapActions(["fetchUsers", "addUser"]),
+    ...mapMutations(["assignUser"]),
+    ...mapActions(["joinUser"]),
+    test() {
+      console.log(this.$refs.userInfo.getUserInfo);
+    },
+    joinUserWrap() {
+      this.joinUser({ user: this.$refs.userInfo.getUserInfo });
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.container {
-  width: 50%;
-}
-.toolbar {
-  padding: 5px 0;
-}
-.right {
-  text-align: right;
-}
-.flex-container {
-  display: flex;
-  flex-wrap: wrap;
-  .item {
-    flex: 1 1 40%;
-    margin-top: 5px;
-  }
-}
+
 </style>

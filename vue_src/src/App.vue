@@ -1,11 +1,10 @@
 <template>
   <div id="app">
     <div class="menu-container">
-      <router-link class="menu" to="/api/user/memberJoin">회원가입</router-link
-      ><br />
-      <router-link class="menu" to="/api/user/login">로그인</router-link><br />
-      <router-link class="menu" to="/api/user/myInfo">나의정보</router-link
-      ><br />
+      <router-link class="menu" to="/">HOME</router-link>
+      <router-link class="menu" to="/api/user/memberJoin">회원가입</router-link>
+      <router-link class="menu" to="/api/user/login">로그인</router-link>
+      <router-link class="menu" to="/api/user/myInfo">나의정보</router-link>
     </div>
     <router-view></router-view>
     <loading ref="loading"></loading>
@@ -14,7 +13,6 @@
 </template>
 
 <script>
-// import UserDetailView from "@/views/user/UserDetailView";
 import lifeCycle from "@/mixins/lifeCycle";
 
 export default {
@@ -45,7 +43,6 @@ export default {
       }
     );
   },
-  components: {},
   methods: {
     showToast() {
       let msg =
@@ -63,12 +60,15 @@ export default {
 @import "~@/style/cmmn";
 .menu-container {
   display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
   .menu {
-    flex-basis: 100px;
-    border: 1px solid black;
+    min-width: 100px;
+    flex: 1 1 100px;
+    background-color: #eee;
     text-align: center;
     text-decoration: none;
-    padding: 3px;
+    padding: 5px;
     &:nth-of-type(n + 2) {
       border-left: none;
     }

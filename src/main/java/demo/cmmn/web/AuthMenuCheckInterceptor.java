@@ -2,6 +2,7 @@ package demo.cmmn.web;
 
 import java.io.PrintWriter;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import demo.cmmn.service.CmmnConst;
+import demo.cmmn.service.CmmnUtil;
 import demo.cmmn.service.CommonService;
 import demo.cmmn.service.LoginRequireException;
 import demo.cmmn.service.PackingVO;
@@ -39,13 +41,22 @@ public class AuthMenuCheckInterceptor extends HandlerInterceptorAdapter {
 			logger.debug("menuPath : [{}]", menuPath);
 			
 			PathVO path = commonService.selectMenuByPath(menuPath);
-			if (path == null || "Y".equals(path.getLoginRequireYn())) {
+			if (path == null) {
+				throw new LoginRequireException("존재하지 않는 메뉴 접근");
+			}
+			
+			if ("Y".equals(path.getLoginRequireYn())) {
 				HttpSession session = request.getSession();
-				logger.debug("AuthMenuCheckInterceptor session ID : [{}]", session.getId());
+//				logger.debug("AuthMenuCheckInterceptor session ID : [{}]", session.getId());
 				UserVO user = (UserVO) session.getAttribute(CmmnConst.USER_INFO);
 				if (user == null) {
 					
-					throw new LoginRequireException("로그인이 필요 합니다.");
+					// 세션연장여부 체크
+					if (AuthMenuCheckInterceptor.CookieChecker.sessionExtendCheck(request, userService)) {
+						session.setAttribute(CmmnConst.USER_INFO, user);
+					} else {
+						throw new LoginRequireException("로그인이 필요 합니다.");
+					}
 				}
 			}
 			
@@ -63,6 +74,41 @@ public class AuthMenuCheckInterceptor extends HandlerInterceptorAdapter {
 		} 
 		
 		return super.preHandle(request, response, handler);
+	}
+	
+	public static class CookieChecker {
+		public static String autoExtendSessionKey(HttpServletRequest request) {
+			Cookie[] cookies = request.getCookies();
+			if (cookies != null) {
+				for (Cookie c : cookies) {
+					if (CmmnConst.SESSION_KEY.equals(c.getName())) {
+						return c.getValue();
+					}
+				}
+			}
+			return null;
+		}
+		
+		public static boolean isSessionLimitAvailable(UserVO user) {
+			if (user == null) return false;
+			return Long.valueOf(user.getSessionLimit()) >= Long.valueOf(CmmnUtil.yyyyMMddhhmmss());
+		}
+		
+		public static boolean sessionExtendCheck(HttpServletRequest request, UserService userService) {
+			boolean result = false;
+			String sessionKey = CookieChecker.autoExtendSessionKey(request);
+			if (sessionKey == null) return result;
+			UserVO user;
+			try {
+				user = userService.selectUserBySessionKey(sessionKey);
+			} catch (Exception e) {
+				logger.error("sessionExtendCheck Error : {}", e);
+				return false;
+			}
+			result = CookieChecker.isSessionLimitAvailable(user);
+			
+			return result;
+		}
 	}
 
 	

@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "../store";
+import Main from "../views/MainView";
 import UserJoin from "../views/user/UserJoinView";
 import UserLogin from "../views/user/UserLoginView";
 import UserDetail from "../views/user/UserDetailView.vue";
@@ -8,6 +9,12 @@ import UserDetail from "../views/user/UserDetailView.vue";
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/",
+    name: "Main",
+    component: Main,
+    meta: { authRequired: false },
+  },
   {
     path: "/api/user/memberJoin",
     name: "UserJoin",
@@ -30,6 +37,12 @@ const routes = [
     name: "UserDetail",
     component: UserDetail,
     meta: { authRequired: true },
+  },
+  {
+    path: "*",
+    name: "Main",
+    component: Main,
+    meta: { authRequired: false },
   },
 ];
 

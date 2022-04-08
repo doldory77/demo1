@@ -89,6 +89,23 @@
         ]]>
     </select>
     
+    <select id="userDAO.selectUserBySessionKey" parameterClass="String" resultMap="user">
+        <![CDATA[
+            SELECT
+                id
+                , name
+                , user_kind_cd
+                , cell_phone_no
+                , birthday
+                , use_yn
+                , session_limit
+                , session_key
+                , email
+            FROM user 
+            WHERE session_key=#sessionKey#
+        ]]>
+    </select>
+    
     <select id="userDAO.selectUserByIdAndPasswd" parameterClass="egovMap" resultMap="user2">
         <![CDATA[
             SELECT

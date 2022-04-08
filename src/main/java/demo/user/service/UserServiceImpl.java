@@ -46,4 +46,9 @@ public class UserServiceImpl extends EgovAbstractServiceImpl implements UserServ
 		return userDAO.updateUserSessionById(params);
 	}
 
+	@Override
+	public UserVO selectUserBySessionKey(String sessionKey) throws Exception {
+		return userDAO.selectUserBySessionKey(sessionKey);
+	}
+
 }

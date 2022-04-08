@@ -85,11 +85,16 @@ export default {
         });
     },
     loginUser({ commit, state }, params) {
+      console.log(params);
       window
         .axios({
           method: "POST",
           url: "/api/user/login.do",
-          data: { id: state.user.id, passwd: state.user.passwd },
+          data: {
+            id: params.id,
+            passwd: params.passwd,
+            isAutoExtendYn: params.isAutoExtendYn,
+          },
         })
         .then((res) => {
           console.log(res);
@@ -99,13 +104,12 @@ export default {
           console.log(error);
         });
     },
-    addUser({ commit, state }, params) {
-      // console.log(JSON.stringify(state.user));
+    joinUser({ commit, state }, params) {
       window
         .axios({
           method: "POST",
           url: "/api/user/joinUser.do",
-          data: state.user,
+          data: params.user,
         })
         .then((res) => {
           console.log(res);

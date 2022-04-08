@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,10 +47,17 @@ public class AuthApiCheckInterceptor extends HandlerInterceptorAdapter {
 			// 퍼블릭 영역이 아닐때 권한 검사
 			PathVO path = commonService.selectApiByPath(apiPath);
 			if (path == null || "Y".equals(path.getLoginRequireYn())) {
-				UserVO user = (UserVO) request.getSession().getAttribute(CmmnConst.USER_INFO);
+				HttpSession session = request.getSession();
+				UserVO user = (UserVO) session.getAttribute(CmmnConst.USER_INFO);
 				
 				if (user == null) {
-					throw new LoginRequireException("로그인이 필요 합니다.");
+					// 세션연장여부 체크
+					if (AuthMenuCheckInterceptor.CookieChecker.sessionExtendCheck(request, userService)) {
+						session.setAttribute(CmmnConst.USER_INFO, user);
+					} else {
+						throw new LoginRequireException("로그인이 필요 합니다.");
+					}
+					
 				}
 				
 				EgovMap params = new EgovMap();
