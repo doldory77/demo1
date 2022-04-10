@@ -369,18 +369,18 @@ INSERT INTO user (
 	email,
 	use_yn
 ) values (
-	'doldory',
+	'demo1',
 	'03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4',
 	'0004',
 	'홍길동',
-	'19770404',
-	'010-2482-9999',
+	'19880404',
+	'01012349999',
 	'doldory@naver.com',
 	'Y'
 );
 
 	INSERT INTO user_api_auth (id, api_cd) values (
-		'doldory',
+		'demo1',
 		'0002'
 	);
 

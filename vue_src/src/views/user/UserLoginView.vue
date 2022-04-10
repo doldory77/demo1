@@ -1,7 +1,7 @@
 <template>
   <div>
     <user-check ref="userCheck">
-      <h3 slot="header" style="text-align:center;">로그인</h3>
+      <h3 slot="header" style="text-align: center">로그인</h3>
       <button slot="footer" class="item" @click="loginUserWrap">확인</button>
     </user-check>
   </div>

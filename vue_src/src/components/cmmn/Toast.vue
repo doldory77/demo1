@@ -32,7 +32,7 @@ export default {
       setTimeout(() => {
         this.isAnim = false;
         this.toastDisplay = "none";
-      }, 4000);
+      }, 3000);
     },
   },
 };
@@ -51,7 +51,7 @@ export default {
   .toast-box {
     box-sizing: border-box;
     height: 80px;
-    min-width: 30vw;
+    min-width: 40vw;
     max-width: 70vw;
     background-color: black;
     color: white;
@@ -60,8 +60,10 @@ export default {
     display: flex;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
     .toast-content {
+      display: flex;
+      align-items: center;
       p {
-        white-space: nowrap;
+        white-space: wrap;
       }
     }
   }
@@ -86,7 +88,7 @@ export default {
 }
 .anim {
   animation-name: fadeInOut;
-  animation-duration: 4s;
+  animation-duration: 3s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
 }

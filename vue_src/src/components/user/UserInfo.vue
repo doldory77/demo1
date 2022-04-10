@@ -1,5 +1,6 @@
 <template>
   <div class="userinfo-container">
+    <slot name="header"></slot>
     <div>
       <div class="row">
         <label class="item text-label">아이디 :</label
@@ -46,15 +47,23 @@
           v-model="user.cellPhoneNo"
         />
       </div>
+      <div class="row">
+        <label class="item text-label">Email :</label
+        ><input
+          class="item text-field"
+          type="text"
+          :disabled="isDisabled === 1"
+          v-model="user.email"
+        />
+      </div>
     </div>
-    <slot></slot>
+    <slot name="footer"></slot>
   </div>
 </template>
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapGetters } =
-  createNamespacedHelpers("user");
+const { mapGetters } = createNamespacedHelpers("user");
 
 export default {
   data() {
@@ -66,6 +75,7 @@ export default {
         name: "",
         birthday: "",
         cellPhoneNo: "",
+        email: ""
       },
     };
   },
@@ -94,7 +104,7 @@ export default {
     label {
       min-width: 200px;
       flex: 0 0 auto;
-    };
+    }
     input {
       min-width: 200px;
       flex: 1 0 auto;

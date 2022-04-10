@@ -1,6 +1,5 @@
 <template>
   <div class="usercheck-container">
-
     <div class="box">
       <slot name="header"></slot>
       <div class="row">
@@ -9,7 +8,11 @@
       </div>
       <div class="row">
         <label class="item text-label">비밀번호 :</label
-        ><input class="item text-field" type="password" v-model="login.passwd" />
+        ><input
+          class="item text-field"
+          type="password"
+          v-model="login.passwd"
+        />
       </div>
     </div>
     <div class="toolbar right">
@@ -63,7 +66,8 @@ export default {
   margin: 0 auto;
   width: 80%;
   .box {
-    padding: 5px 0 30px 0;
+    padding: 5px 0 20px 0;
+    border-bottom: 1px solid #eee;
   }
   .row {
     display: flex;
@@ -73,7 +77,7 @@ export default {
     label {
       min-width: 200px;
       flex: 0 0 auto;
-    };
+    }
     input {
       min-width: 200px;
       flex: 0 0 auto;
@@ -83,8 +87,8 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    padding: 10px 0;
     .item {
+      margin: 20px 0 0 0;
       min-width: 100px;
       flex: 0 0 auto;
     }

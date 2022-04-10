@@ -26,17 +26,17 @@ const routes = [
     name: "UserLogin",
     component: UserLogin,
     meta: { authRequired: false },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    // component: () =>
-    //   import(/* webpackChunkName: "UserLogin" */ "../views/user/UserLoginView"),
   },
   {
     path: "/api/user/myInfo",
     name: "UserDetail",
     component: UserDetail,
     meta: { authRequired: true },
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    // component: () =>
+    //   import(/* webpackChunkName: "UserLogin" */ "../views/user/UserLoginView"),
   },
   {
     path: "*",
@@ -51,7 +51,8 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-
+window.router = router;
+// 라우터 이동전 전처리 전역설정 - 로그인 필수 여부 체크
 router.beforeEach((to, from, next) => {
   if (
     to.matched.some((routeInfo) => {
@@ -63,6 +64,8 @@ router.beforeEach((to, from, next) => {
       callback: (code) => {
         if (code === "0000") {
           next();
+        } else {
+          window.eventBus.$emit("showToast", "로그인 후 이용 가능합니다.");
         }
       },
     });

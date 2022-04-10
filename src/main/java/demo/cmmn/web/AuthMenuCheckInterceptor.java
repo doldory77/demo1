@@ -42,7 +42,7 @@ public class AuthMenuCheckInterceptor extends HandlerInterceptorAdapter {
 			
 			PathVO path = commonService.selectMenuByPath(menuPath);
 			if (path == null) {
-				throw new LoginRequireException("존재하지 않는 메뉴 접근");
+				throw new LoginRequireException("존재하지 않는 메뉴입니다.");
 			}
 			
 			if ("Y".equals(path.getLoginRequireYn())) {

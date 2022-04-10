@@ -6,16 +6,20 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springmodules.validation.commons.DefaultBeanValidator;
 
 import demo.cmmn.service.CmmnConst;
 import demo.cmmn.service.CmmnUtil;
 import demo.cmmn.service.CommonService;
 import demo.cmmn.service.NotExistUserException;
 import demo.cmmn.service.PackingVO;
+import demo.cmmn.service.ValidatorHelper;
 import demo.cmmn.web.BaseController;
 import demo.user.service.UserService;
 import demo.user.service.UserVO;
@@ -24,6 +28,9 @@ import egovframework.rte.psl.dataaccess.util.EgovMap;
 //@CrossOrigin(origins="*", allowCredentials="true")
 @Controller
 public class UserController extends BaseController {
+	
+	@Autowired
+	private DefaultBeanValidator beanValidator;
 
 	@Resource(name="userService")
 	UserService userService;
@@ -33,17 +40,22 @@ public class UserController extends BaseController {
 	
 	@RequestMapping("/api/user/joinUser.do")
 	@ResponseBody
-	public PackingVO joinUser(@RequestBody UserVO vo) throws Exception {
+	public PackingVO joinUser(@RequestBody UserVO userVO, BindingResult bindingResult) throws Exception {
 		
-		logger.debug("userVO : {}", vo);
+		logger.debug("userVO : {}", userVO);
 		
-		PackingVO pack = getPack("0000", "success", vo);
-		pack.setId(vo.getId());
+		PackingVO pack = getPack("0000", "회원가입완료", userVO);
+		pack.setId(userVO.getId());
 		
-		userService.insertUser(vo);
-		
-//		commonService.insertLog(pack);
-//		PackingVO other = commonService.selectLogById(vo.getId());
+		/* 입력갑 유효성 체크
+		 * 실패시 에러코드 1000에 유효성 체크에 실패한 항목(필드)관련 오류 메시지 전송 
+		 */
+		if (!ValidatorHelper.validate(messageSource, beanValidator, userVO, bindingResult, pack)) {
+			return pack;
+		} else {
+			// 유효성 체크 성공시 정상 프로세스 진행
+			userService.insertUser(userVO);
+		}
 		
 		return pack;
 		
@@ -73,7 +85,7 @@ public class UserController extends BaseController {
 			params.put("sessionLimit", CmmnUtil.yyyyMMddhhmmss(new Date().getTime() + CmmnConst.AUTO_EXTEND_SESSION_LIMIT_TIME_MILI));
 			userService.updateUserSessionById(params);
 		}
-		PackingVO pack = getPack("0000", "success", params, user);
+		PackingVO pack = getPack("0000", "로그인성공", params, user);
 		
 		return pack;
 	}

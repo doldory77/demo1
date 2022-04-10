@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springmodules.validation.commons.DefaultBeanValidator;
 
 import demo.cmmn.service.CmmnConst;
 import demo.cmmn.service.PackingVO;
@@ -21,6 +22,10 @@ public class BaseController {
 	
 	@Autowired(required = true)
 	protected HttpServletResponse response;
+	
+	@SuppressWarnings("unused")
+	@Autowired
+	protected DefaultBeanValidator beanValidator;
 	
 	@Resource(name = "messageSource")
 	protected MessageSource messageSource;

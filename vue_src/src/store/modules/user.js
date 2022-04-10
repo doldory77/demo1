@@ -9,6 +9,7 @@ export default {
       name: "이순신",
       birthday: "19770505",
       cellPhoneNo: "010-3333-4444",
+      email: "",
       useYn: "Y",
       grade_history: [],
       addrs: [
@@ -99,12 +100,14 @@ export default {
         .then((res) => {
           console.log(res);
           commit("assignUser", res.data.output);
+          window.router.push('/api/user/myInfo');
         })
         .catch((error) => {
           console.log(error);
         });
     },
     joinUser({ commit, state }, params) {
+      console.log(params)
       window
         .axios({
           method: "POST",

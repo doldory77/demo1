@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div class="box">
     <user-info ref="userInfo" :isDisabled="0" :isNew="1">
-      <div class="toolbar right">
+      <h3 slot="header" style="text-align: center">회원가입</h3>
+      <div slot="footer" class="toolbar">
         <button @click="joinUserWrap">저장</button>
       </div>
     </user-info>
@@ -22,9 +23,6 @@ export default {
   methods: {
     ...mapMutations(["assignUser"]),
     ...mapActions(["joinUser"]),
-    test() {
-      console.log(this.$refs.userInfo.getUserInfo);
-    },
     joinUserWrap() {
       this.joinUser({ user: this.$refs.userInfo.getUserInfo });
     },
@@ -33,5 +31,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+  .box {
+    width: 80%;
+    margin: 0 auto;
+  }
+  .toolbar {
+    display: flex;
+    justify-content: end;
+    padding: 10px 0;
+    button {
+      min-width: 100px;
+    }
+  }
 </style>

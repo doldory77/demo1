@@ -4,8 +4,21 @@
     "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
 
 <form-validation>
-
-    <formset>
+<!-- 각종 유용한 정규식 참고
+숫자										: ^[0-9]*$
+영문자									: ^[a-zA-Z]*$
+한글										: ^[가-힣]*$
+영어&숫자									: ^[a-zA-Z0-9]*$
+비밀번호 (숫자, 문자 포함의 6~12자리 이내)			: ^[A-Za-z0-9]{6,12}$
+비밀번호 (숫자, 문자, 특수문자 포함 8~15자리 이내)	: ^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$
+이메일									: ^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$
+휴대전화									: ^\\d{3}-\\d{3,4}-\\d{4}$
+일반전화									: ^\\d{2,3}-\\d{3,4}-\\d{4}$
+주민등록번호								: \d{6} \- [1-4]\d{6}
+파일확장자									: ^\\S+.(?i)(txt|pdf|hwp|xls)$
+이중 파일확장자								: (.+?)((\\.tar)?\\.gz)$
+ -->
+    <!-- <formset>
         <form name="sampleVO">
         	<field property="name" depends="required">
         		<arg0 key="title.sample.name" />
@@ -13,22 +26,49 @@
 			<field property="description" depends="required">
                 <arg0 key="title.sample.description" />
             </field>
-        	<field property="regUser" depends="required">
+        	<field property="regUser" depends="required, intRange">
         		<arg0 key="title.sample.regUser" />
+        		<arg1 key="1"/>
+				<arg2 key="5"/>
 			</field>
         </form>
-    </formset>
+    </formset> -->
     
     <formset>
         <form name="userVO">
-        	<field property="id" depends="required">
-        		<arg0 key="title.sample.name" />
+        	<field property="id" depends="required, mask">
+        		<arg0 key="user.id" />
+        		<var>
+					<var-name>mask</var-name>
+					<var-value>^[0-9a-zA-Z]*$</var-value>
+				</var>
 			</field>
-			<field property="name" depends="required">
-                <arg0 key="title.sample.description" />
+        	<field property="passwd" depends="required, mask">
+        		<arg0 key="user.passwd" />
+        		<var>
+					<var-name>mask</var-name>
+					<var-value>^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^+=]).*$</var-value>
+				</var>
+			</field>
+			<field property="name" depends="required, korean">
+                <arg0 key="user.name" />
             </field>
-        	<field property="cellPhoneNo" depends="required">
-        		<arg0 key="title.sample.regUser" />
+        	<field property="birthday" depends="date">
+        		<arg0 key="user.birthday" />
+        		<var>
+					<var-name>datePattern</var-name>
+					<var-value>yyyymmdd</var-value>
+				</var>
+			</field>
+        	<field property="cellPhoneNo" depends="required, mask">
+        		<arg0 key="user.cellPhoneNo" />
+        		<var>
+					<var-name>mask</var-name>
+					<var-value>^[0-9]{10,11}$</var-value>
+				</var>
+			</field>
+			<field property="email" depends="required, email">
+        		<arg0 key="user.email" />
 			</field>
         </form>
     </formset>

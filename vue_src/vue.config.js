@@ -1,4 +1,5 @@
 const path = require("path");
+const URL_PATH = process.env.NODE_ENV === "production" ? "/" : "/dist";
 
 module.exports = {
   runtimeCompiler: true,
@@ -17,6 +18,6 @@ module.exports = {
   configureWebpack: {
     devtool: "source-map",
   },
-  outputDir: path.join(__dirname, "/dist"),
-  publicPath: process.env.NODE_ENV === "production" ? "/" : "/dist",
+  outputDir: path.join(__dirname, URL_PATH),
+  publicPath: URL_PATH,
 };
