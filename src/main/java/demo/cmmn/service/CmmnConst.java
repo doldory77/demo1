@@ -9,4 +9,7 @@ public class CmmnConst {
 	public static final int AUTO_EXTEND_SESSION_LIMIT_TIME_MILI = 1000 * AUTO_EXTEND_SESSION_LIMIT_TIME;
 	public static final String SESSION_KEY = "sessionKey";
 	
+	public static final int RECORD_COUNT_PER_PAGE = 10;
+	public static final int BLOCK_COUNT_PER_PAGE = 5;
+	
 }

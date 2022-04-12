@@ -31,4 +31,13 @@ public class CommonDAO extends EgovAbstractDAO {
 		return (PathVO) select("commonDAO.selectApiByPath", path);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<EgovMap> selectCountryList(EgovMap params) throws Exception {
+		return (List<EgovMap>) list("commonDAO.selectCountryList", params);
+	}
+	
+	public int selectCountryListTotCnt(EgovMap params) throws Exception {
+		return (Integer) select("commonDAO.selectCountryListTotCnt", params);
+	}
+	
 }

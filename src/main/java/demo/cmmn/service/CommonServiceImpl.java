@@ -48,6 +48,16 @@ public class CommonServiceImpl extends EgovAbstractServiceImpl implements Common
 	public PathVO selectApiByPath(String path) throws Exception {
 		return commonDAO.selectApiByPath(path);
 	}
+
+	@Override
+	public List<EgovMap> selectCountryList(EgovMap params) throws Exception {
+		return commonDAO.selectCountryList(params);
+	}
+
+	@Override
+	public int selectCountryListTotCnt(EgovMap params) throws Exception {
+		return commonDAO.selectCountryListTotCnt(params);
+	}
 	
 	
 }

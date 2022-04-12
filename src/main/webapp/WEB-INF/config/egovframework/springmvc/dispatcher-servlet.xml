@@ -34,8 +34,8 @@
             <list>
                 <ref bean="localeChangeInterceptor" />
                 <ref bean="commonInterceptor" />
-                <ref bean="authMenuCheckInterceptor" />
-                <ref bean="authApiCheckInterceptor" />
+                <!-- <ref bean="authMenuCheckInterceptor" />
+                <ref bean="authApiCheckInterceptor" /> -->
             </list>
         </property>
     </bean>

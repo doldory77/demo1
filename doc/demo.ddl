@@ -135,6 +135,16 @@ CREATE TABLE log(
 		output VARCHAR(4000)
 );
 
+/**********************************/
+/* Table Name: 국가코드 */
+/**********************************/
+CREATE TABLE country(
+		iso_cd VARCHAR(3),
+		initials1 VARCHAR(3),
+		initials2 VARCHAR(2),
+		country_nm VARCHAR(100)
+);
+
 
 ALTER TABLE user ADD CONSTRAINT IDX_user_PK PRIMARY KEY (id);
 CREATE INDEX IDX_user_1 ON user (session_key);
@@ -163,4 +173,6 @@ ALTER TABLE api ADD CONSTRAINT IDX_api_1 UNIQUE (path);
 ALTER TABLE user_api_auth ADD CONSTRAINT IDX_user_api_auth_PK PRIMARY KEY (id, api_cd);
 ALTER TABLE user_api_auth ADD CONSTRAINT IDX_user_api_auth_FK0 FOREIGN KEY (api_cd) REFERENCES api (api_cd);
 ALTER TABLE user_api_auth ADD CONSTRAINT IDX_user_api_auth_FK1 FOREIGN KEY (id) REFERENCES user (id);
+
+ALTER TABLE country ADD CONSTRAINT IDX_country_PK PRIMARY KEY (iso_cd);
 

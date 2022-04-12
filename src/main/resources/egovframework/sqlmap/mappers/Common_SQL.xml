@@ -106,6 +106,27 @@
             FROM api 
             WHERE path = #path#
         ]]>
-    </select>    
+    </select>
+    
+    <select id="commonDAO.selectCountryList" parameterClass="egovMap" resultClass="egovMap">
+			SELECT
+				iso_cd, initials1, initials2, country_nm
+			FROM country
+			WHERE 1=1
+			<isNotEmpty prepend="AND" property="countryNm">
+				country_nm like '%' || #countryNm# || '%'
+			</isNotEmpty>
+			ORDER BY country_nm
+			LIMIT #recordCountPerPage# OFFSET #firstIndex#		
+	</select>
+	
+	<select id="commonDAO.selectCountryListTotCnt" parameterClass="egovMap" resultClass="int">
+			SELECT COUNT(*) totcnt
+			FROM country
+			WHERE 1=1
+			<isNotEmpty prepend="AND" property="countryNm">
+				country_nm like '%' || #countryNm# || '%'
+			</isNotEmpty>
+	</select>    
 
 </sqlMap>
