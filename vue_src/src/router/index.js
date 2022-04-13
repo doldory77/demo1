@@ -39,6 +39,13 @@ const routes = [
     //   import(/* webpackChunkName: "UserLogin" */ "../views/user/UserLoginView"),
   },
   {
+    path: "/api/etc/country",
+    name: "Country",
+    component: () =>
+      import(/* webpackChunkName: "Country" */ "../views/etc/CountryView"),
+    meta: { authRequired: false },
+  },
+  {
     path: "*",
     name: "Main",
     component: Main,

@@ -13,6 +13,7 @@ public class PackingVO {
 	private String code = "0000";
 	private String msg = "";
 	private String msgDetail = "";
+	private PagingVO pagingInfo;
 	
 	public String getId() {
 		return id;
@@ -63,6 +64,12 @@ public class PackingVO {
 		this.msgDetail = msgDetail;
 	}
 	
+	public PagingVO getPagingInfo() {
+		return pagingInfo;
+	}
+	public void setPagingInfo(PagingVO pagingInfo) {
+		this.pagingInfo = pagingInfo;
+	}
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);

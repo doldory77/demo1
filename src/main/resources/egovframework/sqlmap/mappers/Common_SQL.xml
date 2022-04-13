@@ -116,7 +116,7 @@
 			<isNotEmpty prepend="AND" property="countryNm">
 				country_nm like '%' || #countryNm# || '%'
 			</isNotEmpty>
-			ORDER BY country_nm
+			ORDER BY iso_cd
 			LIMIT #recordCountPerPage# OFFSET #firstIndex#		
 	</select>
 	

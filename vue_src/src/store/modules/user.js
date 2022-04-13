@@ -100,14 +100,14 @@ export default {
         .then((res) => {
           console.log(res);
           commit("assignUser", res.data.output);
-          window.router.push('/api/user/myInfo');
+          window.router.push("/api/user/myInfo");
         })
         .catch((error) => {
           console.log(error);
         });
     },
     joinUser({ commit, state }, params) {
-      console.log(params)
+      console.log(params);
       window
         .axios({
           method: "POST",

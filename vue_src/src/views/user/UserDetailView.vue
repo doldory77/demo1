@@ -3,9 +3,15 @@
     <user-info ref="userInfo" :isDisabled="mode" :isNew="0">
       <h3 slot="header" style="text-align: center">나의정보</h3>
       <div slot="footer" class="toolbar">
-        <button @click="modifyMode" :class="[isModify ? 'on' : 'off']">수정</button>
-        <button @click="modifyModeCancel" :class="[isModify ? 'off' : 'on']">취소</button>
-        <button @click="saveUserInfo" :class="[isModify ? 'off' : 'on']">저장</button>
+        <button @click="modifyMode" :class="[isModify ? 'on' : 'off']">
+          수정
+        </button>
+        <button @click="modifyModeCancel" :class="[isModify ? 'off' : 'on']">
+          취소
+        </button>
+        <button @click="saveUserInfo" :class="[isModify ? 'off' : 'on']">
+          저장
+        </button>
       </div>
     </user-info>
   </div>
@@ -21,8 +27,8 @@ export default {
   data() {
     return {
       mode: 1,
-      isModify: true
-    }
+      isModify: true,
+    };
   },
   components: { UserInfo },
   computed: {
@@ -39,31 +45,29 @@ export default {
       this.mode = 1;
       this.isModify = true;
     },
-    saveUserInfo() {
-      
-    }
+    saveUserInfo() {},
   },
 };
 </script>
 
 <style lang="scss" scoped>
-  .box {
-    width: 80%;
-    margin: 0 auto;
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: end;
-      button {
-        min-width: 100px;
-        margin: 10px 0 0 5px;
-      }
+.box {
+  width: 80%;
+  margin: 0 auto;
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+    button {
+      min-width: 100px;
+      margin: 10px 0 0 5px;
     }
   }
-  .on {
-    display: block;
-  }
-  .off {
-    display: none;
-  }
+}
+.on {
+  display: block;
+}
+.off {
+  display: none;
+}
 </style>

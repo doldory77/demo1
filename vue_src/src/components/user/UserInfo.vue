@@ -75,7 +75,7 @@ export default {
         name: "",
         birthday: "",
         cellPhoneNo: "",
-        email: ""
+        email: "",
       },
     };
   },

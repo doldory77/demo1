@@ -5,6 +5,7 @@
       <router-link class="menu" to="/api/user/memberJoin">회원가입</router-link>
       <router-link class="menu" to="/api/user/login">로그인</router-link>
       <router-link class="menu" to="/api/user/myInfo">나의정보</router-link>
+      <router-link class="menu" to="/api/etc/country">국가찾기</router-link>
     </div>
     <router-view></router-view>
     <loading ref="loading"></loading>
@@ -15,7 +16,7 @@
 
 <script>
 import lifeCycle from "@/mixins/lifeCycle";
-import Popup from './components/cmmn/Popup.vue';
+import Popup from "./components/cmmn/Popup.vue";
 
 export default {
   components: { Popup },
@@ -46,14 +47,20 @@ export default {
       (res) => {
         this.$refs.loading.off();
         if (res.data && res.data.code) {
-          let code = Number(res.data.code)
+          let code = Number(res.data.code);
           if (code === 1000) {
             this.$refs.toast.show(`[${res.data.code}] ${res.data.msg}`);
-          }else if (code >= 9000 && code <= 9009) {
-            this.$refs.popup.show("오류", `[${res.data.code}] ${res.data.msg}`, () => {this.$refs.popup.close();});  
+          } else if (code >= 9000 && code <= 9009) {
+            this.$refs.popup.show(
+              "오류",
+              `[${res.data.code}] ${res.data.msg}`,
+              () => {
+                this.$refs.popup.close();
+              }
+            );
           } else {
             this.$refs.toast.show(`[${res.data.code}] ${res.data.msg}`);
-          } 
+          }
         }
         return res;
       },

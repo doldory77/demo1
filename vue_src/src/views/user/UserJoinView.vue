@@ -31,16 +31,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .box {
-    width: 80%;
-    margin: 0 auto;
+.box {
+  width: 80%;
+  margin: 0 auto;
+}
+.toolbar {
+  display: flex;
+  justify-content: end;
+  padding: 10px 0;
+  button {
+    min-width: 100px;
   }
-  .toolbar {
-    display: flex;
-    justify-content: end;
-    padding: 10px 0;
-    button {
-      min-width: 100px;
-    }
-  }
+}
 </style>
