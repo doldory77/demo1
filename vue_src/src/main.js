@@ -5,6 +5,7 @@ import router from "./router";
 import store from "./store";
 import Toast from "@/components/cmmn/Toast";
 import Loading from "@/components/cmmn/Loading";
+import "./plugins/validator";
 
 Vue.config.productionTip = false;
 
