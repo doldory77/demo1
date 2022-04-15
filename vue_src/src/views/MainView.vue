@@ -2,11 +2,6 @@
   <div style="text-align: center">
     <h3>HOME : 메인 페이지</h3>
     <img @click="showAlert" src="@/assets/logo.png" />
-    <form @submit.prevent="onSubmit">
-      <input v-model="name" name="name" v-validate="'required|minLen3'" />
-      <p v-if="$errors.has('name')">{{ $errors.first("name") }}</p>
-      <button type="submit">submit</button>
-    </form>
   </div>
 </template>
 
@@ -20,9 +15,6 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
-      this.$validator.validateAll();
-    },
     showAlert() {
       this.$EventBus.$emit(
         "showAlert",

@@ -9,6 +9,8 @@
           type="text"
           :disabled="isDisabled === 1"
           v-model="user.id"
+          name="user.id"
+          v-validate="'required|alphaNum'"
         />
       </div>
       <div class="row">
@@ -18,6 +20,8 @@
           type="password"
           v-model="user.passwd"
           :disabled="isDisabled === 1"
+          name="user.passwd"
+          v-validate="'required|passwd2'"
         />
       </div>
       <div class="row">
@@ -27,6 +31,8 @@
           type="text"
           :disabled="isDisabled === 1"
           v-model="user.name"
+          name="user.name"
+          v-validate="'required|hangul|min2'"
         />
       </div>
       <div class="row">
@@ -36,6 +42,8 @@
           type="text"
           :disabled="isDisabled === 1"
           v-model="user.birthday"
+          name="user.birthday"
+          v-validate="'yyyymmdd'"
         />
       </div>
       <div class="row">
@@ -45,6 +53,8 @@
           type="text"
           :disabled="isDisabled === 1"
           v-model="user.cellPhoneNo"
+          name="user.cellPhoneNo"
+          v-validate="'cellphone1'"
         />
       </div>
       <div class="row">
@@ -54,10 +64,30 @@
           type="text"
           :disabled="isDisabled === 1"
           v-model="user.email"
+          name="user.email"
+          v-validate="'email'"
         />
       </div>
     </div>
     <slot name="footer"></slot>
+    <p class="input-err" v-if="$errors.has('user.id')">
+      {{ $errors.first("user.id") }}
+    </p>
+    <p class="input-err" v-if="$errors.has('user.passwd')">
+      {{ $errors.first("user.passwd") }}
+    </p>
+    <p class="input-err" v-if="$errors.has('user.name')">
+      {{ $errors.first("user.name") }}
+    </p>
+    <p class="input-err" v-if="$errors.has('user.birthday')">
+      {{ $errors.first("user.birthday") }}
+    </p>
+    <p class="input-err" v-if="$errors.has('user.cellPhoneNo')">
+      {{ $errors.first("user.cellPhoneNo") }}
+    </p>
+    <p class="input-err" v-if="$errors.has('user.email')">
+      {{ $errors.first("user.email") }}
+    </p>
   </div>
 </template>
 
@@ -66,6 +96,7 @@ import { createNamespacedHelpers } from "vuex";
 const { mapGetters } = createNamespacedHelpers("user");
 
 export default {
+  name: "UserInfo",
   data() {
     return {
       user: {
@@ -91,6 +122,13 @@ export default {
       return this.user;
     },
   },
+  methods: {
+    validate(callback) {
+      if (this.$validator.validateAll()) {
+        if (callback) callback();
+      }
+    },
+  },
 };
 </script>
 
@@ -110,5 +148,8 @@ export default {
       flex: 1 0 auto;
     }
   }
+}
+.input-err {
+  color: red;
 }
 </style>

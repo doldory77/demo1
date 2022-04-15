@@ -24,7 +24,9 @@ export default {
     ...mapMutations(["assignUser"]),
     ...mapActions(["joinUser"]),
     joinUserWrap() {
-      this.joinUser({ user: this.$refs.userInfo.getUserInfo });
+      this.$refs.userInfo.validate(() => {
+        this.joinUser({ user: this.$refs.userInfo.getUserInfo });
+      });
     },
   },
 };
