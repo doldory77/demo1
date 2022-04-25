@@ -46,6 +46,13 @@ const routes = [
     meta: { authRequired: false },
   },
   {
+    path: "/api/mts/mtsDemo1",
+    name: "MtsDemo1",
+    component: () =>
+      import(/* webpackChunkName: "Country" */ "../views/mts/MtsDemo1View"),
+    meta: { authRequired: false },
+  },
+  {
     path: "*",
     name: "Main",
     component: Main,
