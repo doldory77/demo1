@@ -10,7 +10,11 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
 public class ValidatorHelper {
 
 	public static final String DEFINED_VALIDATION_ERROR_CODE = "1000";
-	public static boolean validate(MessageSource messageSource, DefaultBeanValidator beanValidator, Object bean, BindingResult bindingResult, PackingVO pack) {
+	public static boolean validate(MessageSource messageSource
+			, DefaultBeanValidator beanValidator
+			, Object bean
+			, BindingResult bindingResult
+			, PackingVO pack) {
 		beanValidator.validate(bean, bindingResult);
 		if (bindingResult.hasErrors()) {
 			DefaultMessageSourceResolvable dsr = (DefaultMessageSourceResolvable) bindingResult.getAllErrors().get(0).getArguments()[0];
