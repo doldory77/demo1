@@ -112,9 +112,9 @@ public class CommonController extends BaseController {
 		return pack;
 	}	
 	
-	@MessageMapping("/hello")
-	@SendTo("/topic/greetings")
-	public Greeting greeting(HelloMessage message) throws Exception {
-		return new Greeting("Hello, " + message.getName() + "!");
-	}
+//	@MessageMapping("/hello")
+//	@SendTo("/topic/greetings")
+//	public Greeting greeting(HelloMessage message) throws Exception {
+//		return new Greeting("Hello, " + message.getName() + "!");
+//	}
 }

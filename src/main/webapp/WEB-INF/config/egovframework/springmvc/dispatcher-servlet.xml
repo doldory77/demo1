@@ -15,12 +15,12 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
     </context:component-scan>
     
-    <websocket:message-broker application-destination-prefix="/ws">
+    <!-- <websocket:message-broker application-destination-prefix="/ws">
     	<websocket:stomp-endpoint path="/hello">
     		<websocket:sockjs />
     	</websocket:stomp-endpoint>
     	<websocket:simple-broker prefix="/topic" />
-    </websocket:message-broker>
+    </websocket:message-broker> -->
     
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="webBindingInitializer">
