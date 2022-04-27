@@ -198,11 +198,15 @@ export default {
         }
       };
     }
-    this.send(3000);
+    this.send(1000);
+  },
+  destroyed() {
+    this.doStop();
   },
   data() {
     return {
       viewMode: 1,
+      stop: false,
       priceList: [
         {
           index: 1,
@@ -263,8 +267,8 @@ export default {
   },
   methods: {
     send(delayedTime = 1000) {
-      let intervalId = setInterval(() => {
-        if (this.ws.readyState === 1) {
+      setTimeout(() => {
+        if (this.ws.readyState === 1 && this.stop === false) {
           this.ws.send(
             JSON.stringify({
               cmd: "PRICE",
@@ -272,14 +276,13 @@ export default {
               body: { paramCnt: 1, param: "abcd" },
             })
           );
-        } else {
-          for (let i = 0; i < intervalId; i++) {
-            clearInterval(i);
-          }
+          this.send(delayedTime);
         }
       }, delayedTime);
-      return intervalId;
     },
+    doStop() {
+      this.stop = true;
+    }
   },
 };
 </script>
@@ -287,7 +290,7 @@ export default {
 <style lang="scss" scoped>
 .grid {
   width: 100%;
-  height: 300px;
+  height: 350px;
   border: 1px dotted darkgray;
   overflow-y: scroll;
   &::-webkit-scrollbar {
