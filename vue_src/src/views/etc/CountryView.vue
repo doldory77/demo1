@@ -76,7 +76,7 @@ export default {
   margin: 0 auto;
   .search-bar {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     .item {
       min-width: 100px;

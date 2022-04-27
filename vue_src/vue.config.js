@@ -11,12 +11,6 @@ module.exports = {
         // cookieDomainRewrite: { "localhost:8080": "localhost:8888" },
         logLevel: "debug",
       },
-      "/ws": {
-        target: "http://localhost:8080",
-        changeOrigin: true,
-        ws: true,
-        logLevel: "debug",
-      },
     },
     port: 8888,
   },

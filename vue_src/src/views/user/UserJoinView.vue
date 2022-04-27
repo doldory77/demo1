@@ -39,7 +39,7 @@ export default {
 }
 .toolbar {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   padding: 10px 0;
   button {
     min-width: 100px;

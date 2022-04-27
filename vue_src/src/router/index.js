@@ -32,11 +32,6 @@ const routes = [
     name: "UserDetail",
     component: UserDetail,
     meta: { authRequired: true },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    // component: () =>
-    //   import(/* webpackChunkName: "UserLogin" */ "../views/user/UserLoginView"),
   },
   {
     path: "/api/etc/country",

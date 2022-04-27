@@ -57,7 +57,7 @@ export default {
   .toolbar {
     display: flex;
     flex-wrap: wrap;
-    justify-content: end;
+    justify-content: flex-end;
     button {
       min-width: 100px;
       margin: 10px 0 0 5px;

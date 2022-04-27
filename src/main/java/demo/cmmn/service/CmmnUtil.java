@@ -2,6 +2,8 @@ package demo.cmmn.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -45,6 +47,10 @@ public class CmmnUtil {
 		} else { 
 			return ""; 
 		} 
+	}
+	
+	public static int randomRange(int n1, int n2) {
+		return (int) (Math.random() * (n2 - n1 + 1)) + n1;
 	}
 	
 }
