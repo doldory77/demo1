@@ -194,7 +194,16 @@ export default {
     if (this.ws) {
       this.ws.onmessage = (e) => {
         if (e && e.data) {
-          this.priceList = JSON.parse(e.data);
+          // console.log(e.data);
+          let parsedData = JSON.parse(e.data);
+          if (parsedData.header.code === "4444") {
+            this.$EventBus.$emit("showToast", "로그인 후 이용 가능합니다.");
+            this.doStop();
+            this.$router.push("/api/user/login");
+          } else {
+            // console.log(parsedData.body.data);
+            this.priceList = parsedData.body.data;
+          }
         }
       };
     }
@@ -282,7 +291,7 @@ export default {
     },
     doStop() {
       this.stop = true;
-    }
+    },
   },
 };
 </script>

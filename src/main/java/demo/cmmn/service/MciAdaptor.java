@@ -12,4 +12,11 @@ public interface MciAdaptor {
 	 */
 	public List<Map<String, Object>> getPrice(Map<String, Object> params) throws Exception;
 	
+	/** 차트
+	 * @param params
+	 * @return
+	 * @throws Exception
+	 */
+	public String getChart(Map<String, Object> params) throws Exception;
+	
 }

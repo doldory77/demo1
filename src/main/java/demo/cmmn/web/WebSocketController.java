@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
@@ -75,17 +76,35 @@ public class WebSocketController {
 	public void onMessage(String msg, Session session) throws IOException {
 		logger.debug("onMessage {}", msg);
 		WSPackingVO pack = (WSPackingVO)CmmnUtil.OM.readValue(msg, WSPackingVO.class);
+		pack.header.put("code", "0000");
+		pack.header.put("msg", "");
+		pack.header.put("msgDetail", "");
+		
+		HttpSession httpSession = null;
+		ServletContext context = null;
+		UserVO user = null;
 //		logger.debug(pack.getCmd());
 		
 		if (configs.containsKey(session)) {
 			EndpointConfig config = configs.get(session);
 			if (config != null) {				
-				HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSessionConfigurator.SESSION);
+				httpSession = (HttpSession) config.getUserProperties().get(HttpSessionConfigurator.SESSION);
+				context = (ServletContext) config.getUserProperties().get(HttpSessionConfigurator.CONTEXT);
 				if (httpSession != null) {
-					UserVO user = (UserVO) httpSession.getAttribute(CmmnConst.USER_INFO);
+					user = (UserVO) httpSession.getAttribute(CmmnConst.USER_INFO);
 					if (user != null) logger.debug(user.getName());
 				}
 			}
+		}
+		
+		if (user == null) {
+			pack.header.put("code", "4444");
+			pack.header.put("msg", "인증정보없음");
+			pack.header.put("msgDetail", "로그인이 필요합니다.");
+			session.getBasicRemote().sendText(pack.toString());
+			
+			// 종료
+			return;
 		}
 		
 		if ("PRICE".equals(pack.getCmd())) {
@@ -95,7 +114,23 @@ public class WebSocketController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			session.getBasicRemote().sendText(CmmnUtil.OM.writeValueAsString(priceList));
+			pack.body.put("data", priceList);
+			session.getBasicRemote().sendText(CmmnUtil.OM.writeValueAsString(pack));
+		} else if ("CHART".equals(pack.getCmd())) {
+			if (context != null) {
+				String filePath = context.getRealPath("/")+"WEB-INF\\classes\\sample\\";
+				Map<String, Object> params = new HashMap<>();
+				params.put("filePath", filePath);
+				logger.debug(filePath);
+				String result = null;
+				try {
+					result = mciAdaptor.getChart(params);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				logger.debug(result); 
+				session.getBasicRemote().sendText(result);
+			}
 		} else {
 			session.getBasicRemote().sendText(msg);
 		}

@@ -9,7 +9,7 @@ public class WSPackingVO {
 
 	public String cmd;
 	public Map<String, String> header;
-	public Map<String, String> body;
+	public Map<String, Object> body;
 	
 	public WSPackingVO() {
 		this.cmd = "";
@@ -33,11 +33,11 @@ public class WSPackingVO {
 		this.header = header;
 	}
 
-	public Map<String, String> getBody() {
+	public Map<String, Object> getBody() {
 		return body;
 	}
 
-	public void setBody(Map<String, String> body) {
+	public void setBody(Map<String, Object> body) {
 		this.body = body;
 	}
 

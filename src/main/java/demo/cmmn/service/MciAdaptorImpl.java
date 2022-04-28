@@ -1,5 +1,8 @@
 package demo.cmmn.service;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +31,23 @@ public class MciAdaptorImpl implements MciAdaptor {
 		}
 		
 		return list;
+	}
+
+	@Override
+	public String getChart(Map<String, Object> params) throws Exception {
+		StringBuilder sb = new StringBuilder();
+		String leadLine = null;
+		BufferedReader br = null;
+		FileReader fr = null;
+		String fileName = "data" + (CmmnUtil.randomRange(1, 6) % 6) + ".json";
+		fr = new FileReader(new File(params.get("filePath").toString() + fileName));
+		br = new BufferedReader(fr);
+		
+		while ((leadLine = br.readLine()) != null) {
+			sb.append(leadLine);
+		}
+		if (br != null) br.close();
+		return sb.toString();
 	}
 
 }
