@@ -19,6 +19,8 @@ import javax.websocket.server.ServerEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import demo.cmmn.service.CmmnConst;
 import demo.cmmn.service.CmmnUtil;
@@ -36,7 +38,7 @@ public class WebSocketController {
 	private Map<Session, EndpointConfig> configs = Collections.synchronizedMap(new HashMap<>());
 	
 //	@Resource(name="mciAdaptor")
-	private MciAdaptor mciAdaptor = new MciAdaptorImpl();
+	private MciAdaptor mciAdaptor = null; //new MciAdaptorImpl();
 	
 	@OnOpen
 	public void onOpen(Session session, EndpointConfig config) {
@@ -94,6 +96,14 @@ public class WebSocketController {
 					user = (UserVO) httpSession.getAttribute(CmmnConst.USER_INFO);
 					if (user != null) logger.debug(user.getName());
 				}
+			}
+		}
+		
+		if (context != null) {
+			WebApplicationContext wac = WebApplicationContextUtils.getWebApplicationContext(context);
+			if (wac != null) {
+				mciAdaptor = (MciAdaptor) wac.getBean("mciAdaptor");
+//				logger.debug("############### mciAdaptor : {}", wac.getBean("mciAdaptor"));
 			}
 		}
 		
